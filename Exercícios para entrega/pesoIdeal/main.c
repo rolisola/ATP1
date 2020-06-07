@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 #include <stdlib.h>
 
 /*
@@ -9,11 +10,26 @@
 
 */
 
-void main()
+int main()
 {
-    float h;
+    float h, pesoIdeal;
     char sexo;
 
-    printf("Digite o sexo da pessoa: F ou M\n");
+    //printf("Digite sua altura: (em metros)\n");
+    scanf("%f",&h);
+    //printf("Digite seu sexo: F ou M\n");
     scanf(" %c", &sexo);
+    
+    sexo = toupper(sexo);
+    if (sexo == 'F'){
+        pesoIdeal = (62.1*h)-44.7;
+    }else if (sexo == 'M'){
+        pesoIdeal = (72.7*h)-58;
+    }else {
+        printf("Entranda Invalida");
+    }
+
+    //printf("Seu peso ideal: ");
+    printf("%.3f", pesoIdeal);
+    return 0;
 }
