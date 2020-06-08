@@ -17,8 +17,8 @@ int main()
 {
     int codigo;
 
-    //printf("digite o codigo de origem:\n");
-    scanf("%d",&codigo);
+    printf("digite o codigo de origem:\n");
+    scanf("%d", &codigo);
 
     if(codigo == 1){
         printf("Sul");
