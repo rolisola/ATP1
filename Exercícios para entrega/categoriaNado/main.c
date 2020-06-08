@@ -15,22 +15,22 @@ int main()
 {
     int idade;
 
-    printf("Digite a idade do nadador: ");
-    scanf("%i",&idade);
+    //printf("Digite a idade do nadador: \n");
+    scanf("%d",&idade);
 
-    if(5 <= idade <= 7){
+    if((5<= idade) && (idade <=7)){
         printf("Infantil");
-    }else if(8 <= idade <= 10){
+    }else if((8 <= idade) && (idade <= 10)){
         printf("Juvenil");
-    }else if(11 <= idade <= 15){
+    }else if((11 <= idade) && (idade <= 15)){
         printf("Adolescente");
-    }else if(16 <= idade <= 30){
-        pritnf("Adulto");
+    }else if((16 <= idade) && (idade <= 30)){
+        printf("Adulto");
     }else if(idade > 30){
         printf("Mestre");
     }else{
         printf("Entrada invalida");
     }
-    
+
     return 0;
 }
