@@ -31,5 +31,6 @@ int main()
 
     //printf("Seu peso ideal: ");
     printf("%.3f", pesoIdeal);
+    
     return 0;
 }
