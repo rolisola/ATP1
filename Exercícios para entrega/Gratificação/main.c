@@ -19,9 +19,9 @@ int main()
     float h, gratificacao;
     int extraHoras, faltaHoras;
 
-    //printf("Digite o numero de horas extras do funcionario:\n");
+    printf("Digite o numero de horas extras do funcionario:\n");
     scanf("%d", &extraHoras);
-    //printf("Digite o numero de horas faltadas do funcionario:\n");
+    printf("Digite o numero de horas faltadas do funcionario:\n");
     scanf("%d", &faltaHoras);
 
     h = (extraHoras - (( 3 * faltaHoras) / 4));
