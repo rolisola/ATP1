@@ -26,6 +26,26 @@
 
 int main()
 {
-    printf("Hello world!\n");
+    int i, idade, entrada, qtdRegular=0, qtdOtimo=0, somaIdade=0, qtdBom=0;
+    double mediaBom, mediaIdade;
+
+    for(i=0; i<15; i++){
+        scanf("%d %d", &idade, &entrada);
+        if(entrada == 1){
+            qtdRegular += 1;
+        }else if(entrada == 2){
+            qtdBom += 1;
+        }else if(entrada == 3){
+            qtdOtimo += 1;
+            somaIdade += idade;
+        }
+    }
+    system("cls");
+    
+    mediaIdade = ((float)somaIdade/(float)qtdOtimo);
+    mediaBom = (((float)qtdBom*100)/15);
+
+    printf("%f %d %f%%", mediaIdade, qtdRegular, mediaBom);
+
     return 0;
 }
