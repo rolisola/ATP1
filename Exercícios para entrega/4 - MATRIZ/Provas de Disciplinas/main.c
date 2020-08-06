@@ -86,7 +86,7 @@ int main()
         }
     }
 
-    for(i=0;i<8;i++){
+    /*for(i=0;i<8;i++){
         for(j=0;j<5;j++){
             if(verificador == 1){
                 verificador = 0;
@@ -99,8 +99,21 @@ int main()
             }
         }
     }
+*/
+
+    verificador = -1;
+    for(i=0;i<8;i++){
+	    for(j=0;j<5;j++){
+	        if(matriz[i][j] == 0 && verificador != i){
+	            verificador = i;
+	            somaIdade += idade[i];
+	            contador++;
+	        }
+	    }
+	}
 
     mediaIdade = ((float)somaIdade/(float)contador);
+
     printf("%f", mediaIdade);
 
 /*    printf("\n\n");
