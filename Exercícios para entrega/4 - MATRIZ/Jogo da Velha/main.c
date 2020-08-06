@@ -31,14 +31,15 @@
 
 int main()
 {
-    int i, j, linhaPrimeiroJogador, colunaPrimeiroJogador, linhaSegundoJogador, colunaSegundoJogador, validade, fimJogo=0;
-    char  jogoDaVelha[3][3]={{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}}, localSequencia;
+    int i, j, linhaPrimeiroJogador, colunaPrimeiroJogador, linhaSegundoJogador, colunaSegundoJogador, validade, vencedor=0, fimJogo=0, contador=0;
+    char  jogoDaVelha[3][3]={{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
+    char *localSequencia;
     do{
         do{
             scanf(" %d %d", &linhaPrimeiroJogador, &colunaPrimeiroJogador);
-            if((linhaPrimeiroJogador>=0 && linhaPrimeiroJogador<=2) && (colunaPrimeiroJogador>=0 && colunaPrimeiroJogador<=2)){
+            if(((linhaPrimeiroJogador >= 0) && (linhaPrimeiroJogador <= 2)) && ((colunaPrimeiroJogador >= 0) && (colunaPrimeiroJogador <= 2))){
                 validade = 1;
-                if(jogoDaVelha[linhaPrimeiroJogador][colunaPrimeiroJogador] == 'x' || jogoDaVelha[linhaPrimeiroJogador][colunaPrimeiroJogador] == 'o'){
+                if((jogoDaVelha[linhaPrimeiroJogador][colunaPrimeiroJogador] == 'x') || (jogoDaVelha[linhaPrimeiroJogador][colunaPrimeiroJogador] == 'o')){
                     validade = 0;
                     printf("Erro\n");
                 }else{
@@ -49,77 +50,208 @@ int main()
                 printf("Erro\n");
             }
         }while(validade == 0);
-        do{
-            scanf(" %d %d", &linhaSegundoJogador, &colunaSegundoJogador);
-            if((linhaSegundoJogador>=0 && linhaSegundoJogador<=2) && (colunaSegundoJogador>=0 && colunaSegundoJogador<=2)){
-                validade = 1;
-                if(jogoDaVelha[linhaSegundoJogador][colunaSegundoJogador] == 'x' || jogoDaVelha[linhaSegundoJogador][colunaSegundoJogador] == 'o'){
+        
+        contador++;
+
+        if((jogoDaVelha[0][0] == 'x') && (jogoDaVelha[0][1] == 'x') && (jogoDaVelha[0][2] == 'x')){
+            localSequencia = "Linha 0";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[1][0] == 'x') && (jogoDaVelha[1][1] == 'x') && (jogoDaVelha[1][2] == 'x')){
+            localSequencia = "Linha 1";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[2][0] == 'x') && (jogoDaVelha[2][1] == 'x') && (jogoDaVelha[2][2] == 'x')){
+            localSequencia = "Linha 2";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][0] == 'x') && (jogoDaVelha[1][0] == 'x') && (jogoDaVelha[2][0] == 'x')){
+            localSequencia = "Coluna 0";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][1] == 'x') && (jogoDaVelha[1][1] == 'x') && (jogoDaVelha[2][1] == 'x')){
+            localSequencia = "Coluna 1";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][2] == 'x') && (jogoDaVelha[1][2] == 'x') && (jogoDaVelha[2][2] == 'x')){
+            localSequencia = "Coluna 2";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][0] == 'x') && (jogoDaVelha[1][1] == 'x') && (jogoDaVelha[2][2] == 'x')){
+            localSequencia = "Diagonal principal";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][2] == 'x') && (jogoDaVelha[1][1] == 'x') && (jogoDaVelha[2][0] == 'x')){
+            localSequencia = "Diagonal secundaria";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][0] == 'o') && (jogoDaVelha[0][1] == 'o') && (jogoDaVelha[0][2] == 'o')){
+            localSequencia = "Linha 0";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[1][0] == 'o') && (jogoDaVelha[1][1] == 'o') && (jogoDaVelha[1][2] == 'o')){
+            localSequencia = "Linha 1";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[2][0] == 'o') && (jogoDaVelha[2][1] == 'o') && (jogoDaVelha[2][2] == 'o')){
+            localSequencia = "Linha 2";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][0] == 'o') && (jogoDaVelha[1][0] == 'o') && (jogoDaVelha[2][0] == 'o')){
+            localSequencia = "Coluna 0";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][1] == 'o') && (jogoDaVelha[1][1] == 'o') && (jogoDaVelha[2][1] == 'o')){
+            localSequencia = "Coluna 1";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][2] == 'o') && (jogoDaVelha[1][2] == 'o') && (jogoDaVelha[2][2] == 'o')){
+            localSequencia = "Coluna 2";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][0] == 'o') && (jogoDaVelha[1][1] == 'o') && (jogoDaVelha[2][2] == 'o')){
+            localSequencia = "Diagonal principal";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][2] == 'o') && (jogoDaVelha[1][1] == 'o') && (jogoDaVelha[2][0] == 'o')){
+            localSequencia = "Diagonal secundaria";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if(contador == 9){
+            vencedor = 3;
+            fimJogo = 1;
+            break;
+        }
+
+        if(contador != 9){
+            do{
+                scanf(" %d %d", &linhaSegundoJogador, &colunaSegundoJogador);
+                if(((linhaSegundoJogador >= 0) && (linhaSegundoJogador <= 2)) && ((colunaSegundoJogador >= 0) && (colunaSegundoJogador <= 2))){
+                    validade = 1;
+                    if((jogoDaVelha[linhaSegundoJogador][colunaSegundoJogador] == 'x') || (jogoDaVelha[linhaSegundoJogador][colunaSegundoJogador] == 'o')){
+                        validade = 0;
+                        printf("Erro\n");
+                    }else{
+                        jogoDaVelha[linhaSegundoJogador][colunaSegundoJogador] = 'o';
+                    }
+                }else{
                     validade = 0;
                     printf("Erro\n");
-                }else{
-                    jogoDaVelha[linhaSegundoJogador][colunaSegundoJogador] = 'o';
                 }
-            }else{
-                validade = 0;
-                printf("Erro\n");
-            }
-        }while(validade == 0);
-        if(jogoDaVelha[0][0]=='x' && jogoDaVelha[0][1]=='x' && jogoDaVelha[0][2]=='x'){
-            localSequencia = 'Linha 0';
-            fimJogo = 1;
-        }else if(jogoDaVelha[1][0]=='x' && jogoDaVelha[1][1]=='x' && jogoDaVelha[1][2]=='x'){
-            localSequencia = 'Linha 1';
-            fimJogo = 1;
-        }else if(jogoDaVelha[2][0]=='x' && jogoDaVelha[2][1]=='x' && jogoDaVelha[2][2]=='x'){
-            localSequencia = 'Linha 2';
-            fimJogo = 1;
-        }else if(jogoDaVelha[0][0]=='x' && jogoDaVelha[1][0]=='x' && jogoDaVelha[2][0]=='x'){
-            localSequencia= 'Coluna 0';
-            fimJogo = 1;
-        }else if(jogoDaVelha[0][1]=='x' && jogoDaVelha[1][1]=='x' && jogoDaVelha[2][1]=='x'){
-            localSequencia= 'Coluna 1';
-            fimJogo = 1;
-        }else if(jogoDaVelha[0][2]=='x' && jogoDaVelha[1][2]=='x' && jogoDaVelha[2][2]=='x'){
-            localSequencia= 'Coluna 2';
-            fimJogo = 1;
-        }else if(jogoDaVelha[0][0]=='x' && jogoDaVelha[1][1]=='x' && jogoDaVelha[2][2]=='x'){
-            localSequencia= 'Diagonal principal';
-            fimJogo = 1;
-        }else if(jogoDaVelha[0][2]=='x' && jogoDaVelha[1][1]=='x' && jogoDaVelha[2][0]=='x'){
-            localSequencia = 'Diagonal secundaria';
-            fimJogo = 1;
-        }else if(jogoDaVelha[0][0]=='o' && jogoDaVelha[0][1]=='o' && jogoDaVelha[0][2]=='o'){
-            localSequencia = 'Linha 0';
-            fimJogo = 1;
-        }else if(jogoDaVelha[1][0]=='o' && jogoDaVelha[1][1]=='o' && jogoDaVelha[1][2]=='o'){
-            localSequencia = 'Linha 1';
-            fimJogo = 1;
-        }else if(jogoDaVelha[2][0]=='o' && jogoDaVelha[2][1]=='o' && jogoDaVelha[2][2]=='o'){
-            localSequencia = 'Linha 2';
-            fimJogo = 1;
-        }else if(jogoDaVelha[0][0]=='o' && jogoDaVelha[1][0]=='o' && jogoDaVelha[2][0]=='o'){
-            localSequencia= 'Coluna 0';
-            fimJogo = 1;
-        }else if(jogoDaVelha[0][1]=='o' && jogoDaVelha[1][1]=='o' && jogoDaVelha[2][1]=='o'){
-            localSequencia= 'Coluna 1';
-            fimJogo = 1;
-        }else if(jogoDaVelha[0][2]=='o' && jogoDaVelha[1][2]=='o' && jogoDaVelha[2][2]=='o'){
-            localSequencia= 'Coluna 2';
-            fimJogo = 1;
-        }else if(jogoDaVelha[0][0]=='o' && jogoDaVelha[1][1]=='o' && jogoDaVelha[2][2]=='o'){
-            localSequencia= 'Diagonal principal';
-            fimJogo = 1;
-        }else if(jogoDaVelha[0][2]=='o' && jogoDaVelha[1][1]=='o' && jogoDaVelha[2][0]=='o'){
-            localSequencia = 'Diagonal secundaria';
-            fimJogo = 1;
-        }else{
-            localSequencia= 'Empate';
-            fimJogo = 1;
+            }while(validade == 0);
         }
-        printf("\n%d\n", fimJogo);
-    }while(fimJogo == 1);
 
+        if((jogoDaVelha[0][0] == 'x') && (jogoDaVelha[0][1] == 'x') && (jogoDaVelha[0][2] == 'x')){
+            localSequencia = "Linha 0";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[1][0] == 'x') && (jogoDaVelha[1][1] == 'x') && (jogoDaVelha[1][2] == 'x')){
+            localSequencia = "Linha 1";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[2][0] == 'x') && (jogoDaVelha[2][1] == 'x') && (jogoDaVelha[2][2] == 'x')){
+            localSequencia = "Linha 2";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][0] == 'x') && (jogoDaVelha[1][0] == 'x') && (jogoDaVelha[2][0] == 'x')){
+            localSequencia = "Coluna 0";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][1] == 'x') && (jogoDaVelha[1][1] == 'x') && (jogoDaVelha[2][1] == 'x')){
+            localSequencia = "Coluna 1";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][2] == 'x') && (jogoDaVelha[1][2] == 'x') && (jogoDaVelha[2][2] == 'x')){
+            localSequencia = "Coluna 2";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][0] == 'x') && (jogoDaVelha[1][1] == 'x') && (jogoDaVelha[2][2] == 'x')){
+            localSequencia = "Diagonal principal";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][2] == 'x') && (jogoDaVelha[1][1] == 'x') && (jogoDaVelha[2][0] == 'x')){
+            localSequencia = "Diagonal secundaria";
+            vencedor = 1;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][0] == 'o') && (jogoDaVelha[0][1] == 'o') && (jogoDaVelha[0][2] == 'o')){
+            localSequencia = "Linha 0";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[1][0] == 'o') && (jogoDaVelha[1][1] == 'o') && (jogoDaVelha[1][2] == 'o')){
+            localSequencia = "Linha 1";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[2][0] == 'o') && (jogoDaVelha[2][1] == 'o') && (jogoDaVelha[2][2] == 'o')){
+            localSequencia = "Linha 2";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][0] == 'o') && (jogoDaVelha[1][0] == 'o') && (jogoDaVelha[2][0] == 'o')){
+            localSequencia = "Coluna 0";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][1] == 'o') && (jogoDaVelha[1][1] == 'o') && (jogoDaVelha[2][1] == 'o')){
+            localSequencia = "Coluna 1";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][2] == 'o') && (jogoDaVelha[1][2] == 'o') && (jogoDaVelha[2][2] == 'o')){
+            localSequencia = "Coluna 2";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][0] == 'o') && (jogoDaVelha[1][1] == 'o') && (jogoDaVelha[2][2] == 'o')){
+            localSequencia = "Diagonal principal";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if((jogoDaVelha[0][2] == 'o') && (jogoDaVelha[1][1] == 'o') && (jogoDaVelha[2][0] == 'o')){
+            localSequencia = "Diagonal secundaria";
+            vencedor = 2;
+            fimJogo = 1;
+            break;
+        }else if(contador == 9){
+            vencedor = 3;
+            fimJogo = 1;
+            break;
+        }
 
+        contador++;
+    }while(fimJogo == 0);
+
+    if(vencedor != 3){
+        printf("Jogador %d venceu\n", vencedor);
+        printf("%s\n", localSequencia);
+    }else{
+        printf("Empate\n");
+    }
     for(i=0;i<3;i++){
         for(j=0;j<3;j++){
             printf("%c", jogoDaVelha[i][j]);

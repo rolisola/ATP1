@@ -35,6 +35,20 @@
 
 int main()
 {
+    int i, j, k, idade[8], codigoDisciplina[5], matriz[8][5][1];
+
+    for(i=0;i<8;i++){
+        scanf(" %d", &idade[i]);
+    }
+    for(i=0;i<5;i++){
+        scanf(" %d", &codigoDisciplina[i]);
+    }
+    for(i=0;i<8;i++){
+        for(j=0;j<5;j++){
+            scanf(" %d", &matriz[i][j][0]);
+        }
+    }
+
     printf("Hello world!\n");
     return 0;
 }
