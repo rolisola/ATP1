@@ -38,7 +38,7 @@ int main()
 int elemento(int mat[10][10], int linhas, int colunas){
     int i, j, maior=0;
 
-    for(i=0;i<linhas-1;i++){
+    for(i=0;i<linhas;i++){
         for(j=i+1;j<colunas;j++){
             if(mat[i][j] > maior){
                 maior = mat[i][j];
