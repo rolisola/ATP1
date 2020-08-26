@@ -36,15 +36,17 @@ struct Motoboy motoqueiro[b];
 struct Pizza pizza[c];
 struct Pedido pedido[d];
 
-void cadastrarCliente();
-void cadastrarMotoqueiro();
-void cadastrarPizza();
-void cadastrarPedido();
+int cadastrarCliente();
+int cadastrarMotoqueiro();
+int cadastrarPizza();
+int cadastrarPedido();
 void despacharPedido();
 void recebeuPedido();
+void situacao();
 void pedidosSituacao();
 void pedidosCliente();
 void entregasMotoqueiros();
+//void printaStruct();
 
 int main()
 {
@@ -61,20 +63,16 @@ int main()
                 return 0;
                 break;
             case 1:
-                cadastrarCliente(contador1);
-                contador1++;
+                contador1 = cadastrarCliente(contador1);
                 break;
             case 2:
-                cadastrarMotoqueiro(contador2);
-                contador2++;
+                contador2 = cadastrarMotoqueiro(contador2);
                 break;
             case 3:
-                cadastrarPizza(contador3);
-                contador3++;
+                contador3 = cadastrarPizza(contador3);
                 break;
             case 4:
-                cadastrarPedido(contador4);
-                contador4++;
+                contador4 = cadastrarPedido(contador4);
                 break;
             case 5:
                 despacharPedido();
@@ -91,6 +89,11 @@ int main()
             case 9:
                 entregasMotoqueiros();
                 break;
+/*
+            case 10:
+                printaStruct();
+                break;
+*/
             default:
                 printf("Opcao invalida\n");
                 break;
@@ -101,43 +104,57 @@ int main()
     return 0;
 }
 
-void cadastrarCliente(int i){
-    int j;
+int cadastrarCliente(int i){
+    int j, verificador=1;
     char recebeTelefone[15];
     if(i >= a){
         printf("Numero maximo de clientes cadastrados\n");
-        return;
+        fflush(stdin);
+        return i;
     }else{
         scanf(" %[^\n]", recebeTelefone);
         for(j=0;j<a;j++){
-            if(strcmp(recebeTelefone, cliente[j].telefone) == 0){
+            verificador = strcmp(recebeTelefone, cliente[j].telefone);
+            if(verificador == 0){
                 printf("Cliente ja cadastrado\n");
                 fflush(stdin);
-                return;
+                return i;
             }
         }
-        strcpy(cliente[i].telefone , recebeTelefone);
-        scanf(" %[^\n]", cliente[i].nome);
-        scanf(" %[^\n]", cliente[i].endereco.rua);
-        scanf(" %d", &cliente[i].endereco.numero);
-        scanf(" %[^\n]", cliente[i].endereco.bairro);
-        printf("Cliente cadastrado com sucesso\n");
+        if(verificador != 0){
+            strcpy(cliente[i].telefone , recebeTelefone);
+            scanf(" %[^\n]", cliente[i].nome);
+            scanf(" %[^\n]", cliente[i].endereco.rua);
+            scanf(" %d", &cliente[i].endereco.numero);
+            scanf(" %[^\n]", cliente[i].endereco.bairro);
+            printf("Cliente cadastrado com sucesso\n");
+            i++;
+            return i;
+        }
     }
+    return i;
 }
 
-void cadastrarMotoqueiro(int i){
-    int j, boo=0, recebeCodigo;
+int cadastrarMotoqueiro(int i){
+    int j, verificador=0, recebeCodigo;
     if(i >= b){
         printf("Numero maximo de motoqueiros cadastrados\n");
+        fflush(stdin);
+        return i;
     }else{
         scanf(" %d", &recebeCodigo);
         for(j=0;j<b;j++){
-            if(recebeCodigo == motoqueiro[i].codigo){
-                boo = 1;
+            if(recebeCodigo == motoqueiro[j].codigo){
+                verificador = 1;
+                break;
+            }else{
+                verificador = 0;
             }
         }
-        if(boo == 1){
+        if(verificador == 1){
             printf("Motoqueiro ja cadastrado\n");
+            fflush(stdin);
+            return i;
         }else{
             motoqueiro[i].codigo = recebeCodigo;
             scanf(" %[^\n]", motoqueiro[i].cad.telefone);
@@ -146,98 +163,115 @@ void cadastrarMotoqueiro(int i){
             scanf(" %d", &motoqueiro[i].cad.endereco.numero);
             scanf(" %[^\n]", motoqueiro[i].cad.endereco.bairro);
             printf("Motoqueiro cadastrado com sucesso\n");
+            i++;
+            return i;
         }
     }
 }
 
-void cadastrarPizza(int i){
+int cadastrarPizza(int i){
     int j, boo=0, recebeCodigo;
-    //printf("saindo da funcao");
-    //return;
     if(i >= c){
         printf("Numero maximo de pizzas cadastrados\n");
+        fflush(stdin);
+        return i;
     }else{
         scanf(" %d", &recebeCodigo);
         for(j=0;j<c;j++){
             if(recebeCodigo == pizza[j].codigo){
-                printf("Pizza ja cadastrada\n");
                 boo = 1;
-                return;
             }
         }
         if(boo == 1){
             printf("Pizza ja cadastrada\n");
+            fflush(stdin);
+            return i;
         }else{
             pizza[i].codigo = recebeCodigo;
-            //scanf(" %d", &pizza[i].codigo);
             scanf(" %[^\n]", pizza[i].nome);
             scanf(" %f", &pizza[i].preco);
             printf("Pizza cadastrada com sucesso\n");
+            i++;
+            return i;
         }
     }
 }
 
-void cadastrarPedido(int i){
+int cadastrarPedido(int i){
     int j, verificador, recebeCodigoPizza;
     char recebeTelefone[15];
     if(i >= d){
         printf("Numero maximo de pedidos realizados\n");
+        fflush(stdin);
+        return i;
     }else{
         scanf(" %[^\n]", recebeTelefone);
         for(j=0;j<a;j++){
-            verificador = (recebeTelefone != cliente[j].telefone) ? 1 : 0;
+            verificador = strcmp(recebeTelefone, cliente[j].telefone);
+            if(verificador == 0){
+                break;
+            }
         }
-        if(verificador == 1){
+        if(j == a){
             printf("Cliente nao encontrado\n");
-            return;
+            return i;
         }
-        strcpy(pedido[i].telefoneCliente, recebeTelefone);
         scanf(" %d", &recebeCodigoPizza);
         for(j=0;j<c;j++){
-            verificador = (recebeCodigoPizza != pizza[j].codigo) ? 1 : 0;
+            if(recebeCodigoPizza == pizza[j].codigo){
+                break;
+            }
         }
-        if(verificador == 1){
+        if(j == c){
             printf("Pizza nao cadastrada\n");
-            return;
+            return i;
         }
+        strcpy(pedido[i].telefoneCliente, recebeTelefone);
         pedido[i].codigoPizza = recebeCodigoPizza;
         pedido[i].situacao = 1;
         pedido[i].codigoMotoqueiro = 0;
         pedido[i].codigo = i;
         printf("Pedido cadastrado\n");
+        i++;
+        return i;
     }
 }
 
 void despacharPedido(){
-    int i, verificador=0, recebeCodigoPedido, recebeCodigoMotoqueiro;
+    int i, recebeCodigoPedido, recebeCodigoMotoqueiro;
     scanf(" %d", &recebeCodigoPedido);
     for(i=0;i<d;i++){
-        verificador = (recebeCodigoPedido != pedido[i].codigo) ? 1 : 0;
+        if(recebeCodigoPedido == pedido[i].codigo){
+            break;
+        }
     }
-    if(verificador == 1){
+    if(i == d){
         printf("Pedido nao encontrado\n");
         return;
-    }
-    scanf(" %d", &recebeCodigoMotoqueiro);
-    for(i=0;i<b;i++){
-        verificador = (recebeCodigoMotoqueiro != motoqueiro[i].codigo) ? 1 : 0;
-    }
-    if(verificador == 1){
-        printf("Motoqueiro nao encontrado\n");
-        return;
-    }
-    switch(pedido[recebeCodigoPedido].situacao){
-        case 1:
-            pedido[recebeCodigoPedido].situacao = 2;
-            pedido[recebeCodigoPedido].codigoMotoqueiro = recebeCodigoMotoqueiro;
-            printf("Despachando pedido\n");
-            break;
-        case 2:
-            printf("Pedido ja despachado\n");
-            break;
-        case 3:
-            printf("Pedido ja entregue\n");
-            break;
+    }else{
+        switch(pedido[recebeCodigoPedido].situacao){
+            case 1:
+                scanf(" %d", &recebeCodigoMotoqueiro);
+                for(i=0;i<b;i++){
+                    if(recebeCodigoMotoqueiro == motoqueiro[i].codigo){
+                        break;
+                    }
+                }
+                if(i == b){
+                    printf("Motoqueiro nao encontrado\n");
+                    return;
+                }
+                pedido[recebeCodigoPedido].situacao = 2;
+                pedido[recebeCodigoPedido].codigoMotoqueiro = recebeCodigoMotoqueiro;
+                printf("Despachando pedido\n");
+                break;
+            case 2:
+                printf("Pedido ja despachado\n");
+                break;
+            case 3:
+                printf("Pedido ja entregue\n");
+                break;
+        }
     }
 }
 
@@ -245,7 +279,12 @@ void recebeuPedido(){
     int i, verificador, recebeCodigoPedido;
     scanf(" %d", &recebeCodigoPedido);
     for(i=0;i<d;i++){
-        verificador = (recebeCodigoPedido != pedido[i].codigo) ? 1 : 0;
+        if(recebeCodigoPedido == pedido[i].codigo){
+            verificador = 0;
+            break;
+        }else{
+            verificador = 1;
+        }
     }
     if(verificador == 1){
         printf("Pedido nao encontrado\n");
@@ -263,17 +302,18 @@ void recebeuPedido(){
 }
 
 void situacao(int recebeSituacao){
-    int i, verificador;
+    int i, verificador=0;
     for(i=0;i<d;i++){
-        verificador = (recebeSituacao != pedido[i].situacao) ? 1 : 0;
         if(recebeSituacao == pedido[i].situacao){
             printf("Pedido: %d\n", pedido[i].codigo);
             printf("Cliente: %s\n", pedido[i].telefoneCliente);
             printf("Pizza: %d\n", pedido[i].codigoPizza);
             printf("Motoq: %d\n", pedido[i].codigoMotoqueiro);
+        }else{
+            verificador++;
         }
     }
-    if(verificador == 1){
+    if(verificador == d){
         printf("Sem itens nessa situacao\n");
     }
 }
@@ -281,7 +321,6 @@ void situacao(int recebeSituacao){
 void pedidosSituacao(){
     int recebeSituacao;
     scanf(" %d", &recebeSituacao);
-    //if((recebeSituacao >= 1) && (recebeSituacao <= 3))
     switch(recebeSituacao){
         case 1:
            situacao(recebeSituacao);
@@ -299,38 +338,45 @@ void pedidosSituacao(){
 }
 
 void pedidosCliente(){
-    int i, verificador;
+    int i, contador=0, verificador;
     char recebeTelefone[15];
     scanf(" %[^\n]", recebeTelefone);
     for(i=0;i<a;i++){
-        verificador = (recebeTelefone != cliente[i].telefone) ? 1 : 0;
-    }
-    if(verificador == 1){
-        printf("Cliente nao encontrado\n");
-        return;
-    }
-    for(i=0;i<d;i++){
-        if(recebeTelefone == pedido[i].telefoneCliente){
-            printf("Pedido: %d\n", pedido[i].codigo);
-            printf("Situacao: %d\n", pedido[i].situacao);
-            printf("Pizza: %d\n", pedido[i].codigoPizza);
-            printf("Motoq: %d\n", pedido[i].codigoMotoqueiro);
-        }else{
-            verificador = 2;
+        verificador = strcasecmp(recebeTelefone, cliente[i].telefone);
+        if(verificador == 0){
+            break;
         }
     }
-    if(verificador == 2){
-        printf("Cliente sem pedidos\n");
+    if(i == a){
+        printf("Cliente nao encontrado\n");
+        return;
+    }else{
+        for(i=0;i<d;i++){
+            verificador = strcasecmp(recebeTelefone, pedido[i].telefoneCliente);
+            if(verificador == 0){
+                printf("Pedido: %d\n", pedido[i].codigo);
+                printf("Situacao: %d\n", pedido[i].situacao);
+                printf("Pizza: %d\n", pedido[i].codigoPizza);
+                printf("Motoq: %d\n", pedido[i].codigoMotoqueiro);
+            }else{
+                contador++;
+            }
+        }
+        if(contador == d){
+            printf("Cliente sem pedidos\n");
+        }
     }
 }
 
 void entregasMotoqueiros(){
-    int i, verificador, recebeCodigoMotoqueiro;
+    int i, verificador=0, recebeCodigoMotoqueiro;
     scanf(" %d", &recebeCodigoMotoqueiro);
     for(i=0;i<b;i++){
-        verificador = (recebeCodigoMotoqueiro != motoqueiro[i].codigo) ? 1 : 0;
+        if(recebeCodigoMotoqueiro == motoqueiro[i].codigo){
+            break;
+        }
     }
-    if(verificador == 1){
+    if(i == b){
         printf("Motoqueiro nao encontrado\n");
         return;
     }
@@ -339,13 +385,51 @@ void entregasMotoqueiros(){
             printf("Pedido: %d\n", pedido[i].codigo);
             printf("Situacao: %d\n", pedido[i].situacao);
         }else{
-            verificador = 2;
+            verificador++;
         }
     }
-    if(verificador == 2){
+    if(verificador == d){
         printf("Motoqueiro sem pedidos\n");
     }
 }
 
-
-
+/*
+void printaStruct(){
+    int i;
+    printf("\nClientes:\n");
+    for(i=0;i<a;i++){
+        printf("Cliente %d\n", i);
+        printf("Telefone: %s\n", cliente[i].telefone);
+        printf("Nome: %s\n", cliente[i].nome);
+        printf("Rua: %s\n", cliente[i].endereco.rua);
+        printf("Numero: %d\n", cliente[i].endereco.numero);
+        printf("Bairro: %s\n", cliente[i].endereco.bairro);
+    }
+    printf("\nEntregadores:\n");
+    for(i=0;i<b;i++){
+        printf("Entregador %d\n", i);
+        printf("Codigo: %d\n", motoqueiro[i].codigo);
+        printf("Telefone: %s\n", motoqueiro[i].cad.telefone);
+        printf("Nome: %s\n", motoqueiro[i].cad.nome);
+        printf("Rua: %s\n", motoqueiro[i].cad.endereco.rua);
+        printf("Numero: %d\n", motoqueiro[i].cad.endereco.numero);
+        printf("Bairro: %s\n", motoqueiro[i].cad.endereco.bairro);
+    }
+    printf("\nPizzas\n");
+    for(i=0;i<c;i++){
+        printf("Pizza %d\n", i);
+        printf("Codigo: %d\n", pizza[i].codigo);
+        printf("Nome: %s\n", pizza[i].nome);
+        printf("Preco: %.2f\n", pizza[i].preco);
+    }
+    printf("\nPedidos\n");
+    for(i=0;i<d;i++){
+        printf("Pedido %d\n", i);
+        printf("Codigo: %d\n", pedido[i].codigo);
+        printf("Telefone: %s\n", pedido[i].telefoneCliente);
+        printf("Pizza: %d\n", pedido[i].codigoPizza);
+        printf("Motoq: %d\n", pedido[i].codigoMotoqueiro);
+        printf("Situacao: %d\n", pedido[i].situacao);
+    }
+}
+*/
