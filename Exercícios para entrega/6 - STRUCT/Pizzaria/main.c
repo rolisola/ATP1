@@ -20,7 +20,7 @@ struct Pizza{
     float preco;
 };
 struct Pedido{
-    int codigo, codigoPizza,codigoMotoqueiro, situacao;
+    int codigo, codigoPizza, codigoMotoqueiro, situacao;
     char telefoneCliente[15];
 };
 
@@ -28,8 +28,6 @@ struct Pedido{
 #define b 2
 #define c 3
 #define d 6
-
-//const int a=5, b=2, c=3, d=6;
 
 struct Pessoa cliente[a];
 struct Motoboy motoqueiro[b];
@@ -51,16 +49,13 @@ void entregasMotoqueiros();
 int main()
 {
     int opcaoMenu, contador1=0, contador2=0, contador3=0, contador4=0;
-    //float aa;
-    //aa = sizeof(cliente)/sizeof(cliente[0]);
-    //printf("\n%d\n", aa);
+    
     do{
         scanf(" %d", &opcaoMenu);
 
         switch(opcaoMenu){
             case 0:
                 printf("Encerrando sistema\n");
-                return 0;
                 break;
             case 1:
                 contador1 = cadastrarCliente(contador1);
@@ -97,7 +92,6 @@ int main()
             default:
                 printf("Opcao invalida\n");
                 break;
-
         };
     }while(opcaoMenu != 0);
 
@@ -107,6 +101,7 @@ int main()
 int cadastrarCliente(int i){
     int j, verificador=1;
     char recebeTelefone[15];
+
     if(i >= a){
         printf("Numero maximo de clientes cadastrados\n");
         fflush(stdin);
@@ -137,6 +132,7 @@ int cadastrarCliente(int i){
 
 int cadastrarMotoqueiro(int i){
     int j, verificador=0, recebeCodigo;
+
     if(i >= b){
         printf("Numero maximo de motoqueiros cadastrados\n");
         fflush(stdin);
@@ -171,6 +167,7 @@ int cadastrarMotoqueiro(int i){
 
 int cadastrarPizza(int i){
     int j, boo=0, recebeCodigo;
+
     if(i >= c){
         printf("Numero maximo de pizzas cadastrados\n");
         fflush(stdin);
@@ -200,6 +197,7 @@ int cadastrarPizza(int i){
 int cadastrarPedido(int i){
     int j, verificador, recebeCodigoPizza;
     char recebeTelefone[15];
+
     if(i >= d){
         printf("Numero maximo de pedidos realizados\n");
         fflush(stdin);
@@ -239,6 +237,7 @@ int cadastrarPedido(int i){
 
 void despacharPedido(){
     int i, recebeCodigoPedido, recebeCodigoMotoqueiro;
+
     scanf(" %d", &recebeCodigoPedido);
     for(i=0;i<d;i++){
         if(recebeCodigoPedido == pedido[i].codigo){
@@ -277,6 +276,7 @@ void despacharPedido(){
 
 void recebeuPedido(){
     int i, verificador, recebeCodigoPedido;
+
     scanf(" %d", &recebeCodigoPedido);
     for(i=0;i<d;i++){
         if(recebeCodigoPedido == pedido[i].codigo){
@@ -303,6 +303,7 @@ void recebeuPedido(){
 
 void situacao(int recebeSituacao){
     int i, verificador=0;
+
     for(i=0;i<d;i++){
         if(recebeSituacao == pedido[i].situacao){
             printf("Pedido: %d\n", pedido[i].codigo);
@@ -320,6 +321,7 @@ void situacao(int recebeSituacao){
 
 void pedidosSituacao(){
     int recebeSituacao;
+
     scanf(" %d", &recebeSituacao);
     switch(recebeSituacao){
         case 1:
@@ -340,6 +342,7 @@ void pedidosSituacao(){
 void pedidosCliente(){
     int i, contador=0, verificador;
     char recebeTelefone[15];
+
     scanf(" %[^\n]", recebeTelefone);
     for(i=0;i<a;i++){
         verificador = strcasecmp(recebeTelefone, cliente[i].telefone);
@@ -370,6 +373,7 @@ void pedidosCliente(){
 
 void entregasMotoqueiros(){
     int i, verificador=0, recebeCodigoMotoqueiro;
+    
     scanf(" %d", &recebeCodigoMotoqueiro);
     for(i=0;i<b;i++){
         if(recebeCodigoMotoqueiro == motoqueiro[i].codigo){

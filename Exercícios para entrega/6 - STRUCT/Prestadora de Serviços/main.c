@@ -29,14 +29,13 @@ void consultaGeral();
 
 int main()
 {
-    //const int linha=30 , coluna=3;
-    //const int coluna=3;
+    int c1=0,c2=0, opcaoMenu;
 
-    int c1=0,c2=0;
-    int opcaoMenu;
     inicializacao();
+
     do{
         scanf(" %d", &opcaoMenu);
+
         switch(opcaoMenu){
             case 1:
                 c1 = cadastrarTipoServico(c1);
@@ -61,12 +60,13 @@ int main()
                 break;
         }
     }while(opcaoMenu != 6);
+
     return 0;
 }
 
 void inicializacao(){
     int i,j;
-    //int k;
+
     for(i=0;i<vt;i++){
         tipoServico[i].codigo = 0;
         //for(j=0;j<desc;j++){
@@ -75,7 +75,6 @@ void inicializacao(){
     }
     for(i=0;i<dia;i++){
         for(j=0;j<coluna;j++){
-            //historico[i][j].codigo = 0;
             historico[i][j].codigoCliente = 0;
             historico[i][j].numeroServico = 0;
             historico[i][j].valor = 0;
@@ -90,6 +89,7 @@ void inicializacao(){
 int cadastrarTipoServico(int i){
     int j, recebeCodigo;
     char recebeDescricao[20];
+
     for(j=0;j<vt;j++){
         if(tipoServico[j].codigo == 0){
             break;
@@ -118,6 +118,7 @@ int cadastrarTipoServico(int i){
 int cadastrarServico(int i){
     int j,k, recebeDia, recebeCodigoServico, recebeNumeroServico, recebeCodigoCliente;
     float recebeValor;
+
     scanf(" %d", &recebeDia);
     for(j=0;j<coluna;j++){
         if(historico[recebeDia-1][j].servico.codigo == 0){
@@ -150,7 +151,6 @@ int cadastrarServico(int i){
     for(k=0;k<vt;k++){
         if(recebeCodigoServico == tipoServico[k].codigo){
             strcpy(historico[recebeDia-1][j].servico.descricao, tipoServico[k].descricao);
-            //historico[recebeDia-1][j].servico.descricao = tipoServico[k].descricao;
         }
     }
     historico[recebeDia-1][j].numeroServico = recebeNumeroServico;
@@ -164,6 +164,7 @@ int cadastrarServico(int i){
 
 void consultaDia(){
     int i, c=0, recebeDia, reduz;
+
     scanf(" %d", &recebeDia);
     reduz = (recebeDia-1);
     for(i=0;i<coluna;i++){
@@ -181,6 +182,7 @@ void consultaDia(){
 void consultaValor(){
     int i,j, contador=0;
     float recebeValorMinimo, recebeValorMaximo;
+
     scanf(" %f", &recebeValorMinimo);
     scanf(" %f", &recebeValorMaximo);
     for(i=0;i<dia;i++){
@@ -199,6 +201,7 @@ void consultaValor(){
 
 void consultaGeral(){
     int i, j,contador=0;
+    
     for(i=0;i<dia;i++){
         for(j=0;j<coluna;j++){
             if(historico[i][j].servico.codigo != 0){

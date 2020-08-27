@@ -2,11 +2,28 @@
 #include <stdlib.h>
 #include <string.h>
 
+enum TIPO{
+    livro=1,
+    tese,
+    periodico,
+};
 enum MODALIDADE{
     mestrado=1,
     doutorado,
 };
+
+struct LIVROS{
+    int ano;
+    char autor[30], titulo[30], editora[30], cidade[30];
+};
+struct TESES{
+    enum MODALIDADE modalidade;
+    int mes, ano;
+    char autor[30], titulo[30], universidade[30], programaPos[30], orientador[30];
+};
+
 enum MODALIDADE mod;
+enum TIPO tipo;
 
 int cadastrarObra();
 void consultarObra();
