@@ -1,8 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+enum MODALIDADE{
+    mestrado=1,
+    doutorado,
+};
+enum MODALIDADE mod;
+
+int cadastrarObra();
+void consultarObra();
 
 int main()
 {
-    printf("Hello world!\n");
+    int cont=0, opcaoMenu;
+    do{
+        scanf(" %d", &opcaoMenu);
+        switch(opcaoMenu){
+            case 1:
+                cont = cadastrarObra(cont);
+                break;
+            case 2:
+                consultarObra();
+                break;
+            case 3:
+                printf("Fim de execucao\n");
+                break;
+        }
+
+    }while( opcaoMenu != 3);
     return 0;
+}
+
+int cadastrarObra(int i){
+
+    return i;
+}
+
+void consultarObra(){
+
 }
