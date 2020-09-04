@@ -21,6 +21,10 @@ struct TESES{
     int mes, ano;
     char autor[30], titulo[30], universidade[30], programaPos[30], orientador[30];
 };
+struct PERIODICOS{
+    int volume, mes, ano, numeroPaginas;
+    char titulo[30], editora[30], cidade[30];
+};
 
 enum MODALIDADE mod;
 enum TIPO tipo;
