@@ -1,6 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void sair();
+void cadastrarCliente();
+void atualizarCliente();
+void listarCliente();
+void cadastrarCarro();
+void cadastrarCategoria();
+void locarCarro();
+void devolverCarro();
+void listarDadosLocacao();
+void listarLocacaoCliente();
+void listarLocacaoEmAberto();
+void listarLocacaoPorFrequencia();
+void erro();
+
 int main()
 {
     int opcaoMenu;
@@ -49,4 +63,43 @@ int main()
     }while(opcaoMenu != 0);
 
     return 0;
+}
+
+void sair(){
+}
+
+void cadastrarCliente(){
+}
+
+void atualizarCliente(){
+}
+
+void listarCliente(){
+}
+
+void cadastrarCarro(){
+}
+
+void cadastrarCategoria(){
+}
+
+void locarCarro(){
+}
+
+void devolverCarro(){
+}
+
+void listarDadosLocacao(){
+}
+
+void listarLocacaoCliente(){
+}
+
+void listarLocacaoEmAberto(){
+}
+
+void listarLocacaoPorFrequencia(){
+}
+
+void erro(){
 }
