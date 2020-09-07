@@ -59,7 +59,8 @@ O limite máximo de desconto não pode exceder a 30% do valor devido, i.e., o m�
 Exemplo: telefone, que tem formato 19-9-XXXX-XXXX, deve ter tamanho 15 e não 14. Para padronizar, as strings que não tem formato definido devem ser declaradas com tamanho 50.
 
 ## Observações sobre a correção:
-- É necessário passar nos casos de teste. Contudo, a nota não será baseada apenas nos casos de teste. Os códigos serão comparados em termo de similaridade, será checado se o mesmo comtempla as especificações recomendadas e será avaliada também a qualidade de abstração da solução proposta.
+- É necessário passar nos casos de teste. Contudo, a nota não será baseada apenas nos casos de teste. Os códigos serão comparados em termo de similaridade, será checado se o mesmo contempla as especificações recomendadas e será avaliada também a qualidade de abstração da solução proposta.
+
 ## Menu de Opções:
 1. Cadastro de Cliente
 
