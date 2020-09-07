@@ -5,7 +5,7 @@ Uma empresa de locação de veículos está contratando você para desenvolver s
 
 - Carro: um carro é descrito pelas seguintes características: renavam (formato: XXXXXXXXXXX) (chave de busca), placa (formato: LLL-NNNN), marca, modelo, ano, cor e categoria. As cores possíveis são: preta (1), branca (2) e prata (3) (fazer validação). As categorias possíveis são: hatch (1), sedan (2), suv (3) e jipe (4) (fazer validação). Para facilitar, supõe-se que é possível cadastrar no máximo 10 carros.
 
-- Cada categoria de carro está associada as seguintes informações: valor da diária e pontos fidelidade. O valor da diária é baseado, portanto, na categoria do carro. Cada categoria gera um pontuação ao cliente, que poderá ser utilizada para ganhar descontos quando for realizar futuras locações. Fazer validação para a categoria informada.
+- Cada categoria de carro está associada as seguintes informações: valor da diária e pontos fidelidade. O valor da diária é baseado, portanto, na categoria do carro. Cada categoria gera uma pontuação ao cliente, que poderá ser utilizada para ganhar descontos quando for realizar futuras locações. Fazer validação para a categoria informada.
 
 - Locação: uma locação é descrita pelas seguintes características: código da locação, tipo do cliente (física ou jurídica) (fazer validação), cliente (CPF ou CNPJ) (fazer validação), carro (Renavan) (fazer validação), data de retirada e data da devolução. O código deverá ser gerado automaticamente (auto incremento) e começará na numeração 1001. As datas são compotas por dia, mês e ano (exibir para o usuário no formato dd/mm/aa). Enquanto o carro não é devolvido, a data de devolução fica em 00/00/00.
 
