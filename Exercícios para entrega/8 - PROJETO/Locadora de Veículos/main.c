@@ -32,9 +32,9 @@ void sair();
 int cadastrarCliente();
 void atualizarCliente();
 void listarCliente();
-int cadastrarCarro();
+void cadastrarCarro();
 void cadastrarCategoria();
-int cadastrarLocacaoCarro();
+void locarCarro();
 void devolverCarro();
 void listarDadosLocacao();
 void listarLocacaoCliente();
@@ -44,7 +44,7 @@ void erro();
 
 int main()
 {
-    int contadorCadastroCliente=0, contadorCadastroCarro=0, opcaoMenu;
+    int contadorCadastroCliente=0, opcaoMenu;
     //char mode="r", filename="6.in";
     //FILE *fopen( const char * filename, const char * mode );
     remove("saida.txt");
@@ -66,13 +66,13 @@ int main()
                 //listarCliente();
                 break;
             case 4:
-                contadorCadastroCarro = cadastrarCarro(contadorCadastroCarro);
+                //cadastrarCarro();
                 break;
             case 5:
                 //cadastrarCategoria();
                 break;
             case 6:
-                //cadastrarLocacaoCarro();
+                //locarCarro();
                 break;
             case 7:
                 //devolverCarro();
@@ -98,6 +98,8 @@ int main()
     return 0;
 }
 
+/* Função de cadastro boa
+
 int cadastrarCliente(int i){
     union pessoaCadastro{
         char cpf[15], cnpj[19];
@@ -113,7 +115,7 @@ int cadastrarCliente(int i){
                 scanf(" %s", pC.cpf);
 
                 for(j=0;j<i;j++){
-                    if(strcmp(cliente[j].pessoa.fisica, pC.cpf) == 0){
+                    if(strcmp(pC.cpf, cliente[j].pessoa.fisica) == 0){
                         erro(3);
                         return i;
                     }
@@ -136,7 +138,7 @@ int cadastrarCliente(int i){
                 scanf(" %s", pC.cnpj);
 
                 for(j=0;j<i;j++){
-                    if(strcmp(cliente[j].pessoa.juridica, pC.cnpj) == 0){
+                    if(strcmp(pC.cnpj, cliente[j].pessoa.juridica) == 0){
                         erro(3);
                         return i;
                     }
@@ -163,47 +165,78 @@ int cadastrarCliente(int i){
         erro(2);
     }
     return i;
-}
+}*/
 
-//void atualizarCliente(){}
+// Função de cadastro ruim
+int cadastrarCliente(int i){
+    int j, tipoPessoa;
+    char fisJur[19];
 
-//void listarCliente(){}
+    scanf(" %d", &tipoPessoa);
+    scanf(" %s", fisJur);
+    if(i < 15){
+        switch(tipoPessoa){
+            case 1:
+                for(j=0;j<i;j++){
+                    if(strcmp(fisJur, cliente[j].pessoa.fisica) == 0){
+                        erro(3);
+                        return i;
+                    }
+                }
 
-int cadastrarCarro(int i){
-    int j, recebeAno;
-    char recebeRenavam[11], recebePlaca[9], recebeMarca[50], recebeModelo[50];
+                strcpy(cliente[i].pessoa.fisica, fisJur);
 
-    if(i < 10){
-        scanf(" %s", recebeRenavam);
-        for(j=0;j<i;j++){
-            if(strcmp(carro[i].renavam, recebeRenavam) == 0){
-                erro(3);
-                return i;
-            }
+                scanf(" %[^\n]%*c", cliente[i].nome);
+                scanf(" %[^\n]%*c", cliente[i].endereco.rua);
+                scanf(" %d", &cliente[i].endereco.numero);
+                scanf(" %[^\n]%*c", cliente[i].endereco.bairro);
+                scanf(" %[^\n]%*c", cliente[i].endereco.cidade);
+                scanf(" %s", cliente[i].telefone);
+
+                i++;
+
+                printf("Cadastrado com Sucesso\n");
+                break;
+            case 2:
+                for(j=0;j<i;j++){
+                    if(strcmp(fisJur, cliente[j].pessoa.juridica) == 0){
+                        erro(3);
+                        return i;
+                    }
+                }
+
+                strcpy(cliente[i].pessoa.juridica, fisJur);
+
+                scanf(" %[^\n]%*c", cliente[i].nome);
+                scanf(" %[^\n]%*c", cliente[i].endereco.rua);
+                scanf(" %d", &cliente[i].endereco.numero);
+                scanf(" %[^\n]%*c", cliente[i].endereco.bairro);
+                scanf(" %[^\n]%*c", cliente[i].endereco.cidade);
+                scanf(" %s", cliente[i].telefone);
+
+                i++;
+
+                printf("Cadastrado com Sucesso\n");
+                break;
+            default:
+                erro(1);
+                break;
         }
-
-        strcpy(carro[i].renavam, recebeRenavam);
-        
-        scanf(" %u", &carro[i].cor);
-        if(verificarCor(carro[i].cor) == 0){
-            return i;
-        }
-
-        scanf(" %u", &carro[i].categoria);
-        if(verficarCategoria(carro[i].categoria) == 0){
-            return i;
-        }
-
-
     }else{
         erro(2);
     }
     return i;
 }
 
+//void atualizarCliente(){}
+
+//void listarCliente(){}
+
+//void cadastrarCarro(){}
+
 //void cadastrarCategoria(){}
 
-//void cadastrarLocacaoCarro(){}
+//void locarCarro(){}
 
 //void devolverCarro(){}
 
