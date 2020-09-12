@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Uma escola deseja saber se existem alunos cursando, simultaneamente, as disciplinas de Lógica e Linguagem de Programação. Coloque os números das matrículas dos alunos que cursam Lógica em um vetor, no máximo quinze alunos. Coloque os números das matrículas dos alunos que cursam Linguagem de Programação em outro vetor, no máximo dez alunos. Mostre o número das matrículas que aparecem nos dois vetores (seguindo a ordem em que as matriculas aparecem no vetor de Linguagem de Programação).

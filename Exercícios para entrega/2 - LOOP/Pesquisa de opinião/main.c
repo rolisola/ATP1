@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Cada espectador de um cinema respondeu a um questionário no qual constava sua idade e a sua opinião (Tabela abaixo) em relação ao filme assistido. Faça um programa que receba a idade e a opinião de 15 espectadores e que calcule e mostre:
@@ -40,7 +39,6 @@ int main()
             somaIdade += idade;
         }
     }
-    system("cls");
     
     mediaIdade = ((float)somaIdade/(float)qtdOtimo);
     mediaBom = (((float)qtdBom*100)/15);

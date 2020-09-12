@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Faça uma sub-rotina que receba uma matriz 10X10 e determine o maior elemento acima da diagonal principal. Este valor deverá ser mostrado no programa principal.

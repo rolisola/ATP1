@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Dado inicialmente um número N, faça um programa que receba a idade de N pessoas, calcule e mostre:
@@ -31,10 +30,8 @@ int main()
     float porcentagemFaixa1e2;
 
     scanf("%d", &numeroPessoas);
-
     for(i=0;i<numeroPessoas;i++){
         scanf("%d", &idade);
-
         if(idade <= 15){
             iFaixa1++;
         }else if((idade >= 16) && (idade <= 30)){

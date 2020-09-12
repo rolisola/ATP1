@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Faça um programa que receba o preço de um produto, calcule e mostre, de acordo com as tabelas a seguir, o novo preço e a classificação.
@@ -26,9 +25,7 @@ int main()
 {
     float preco, novopreco;
 
-    printf("Digite o preco do produto:\n");
     scanf("%f", &preco);
-
     if(preco <= 49.99){
         novopreco = (preco * 1.05);
     }else if((preco >= 50) && (preco <= 99.99)){
@@ -48,6 +45,5 @@ int main()
     }else if(novopreco >= 200){
         printf("Muito Caro\n");
     }
-
     return 0;
 }

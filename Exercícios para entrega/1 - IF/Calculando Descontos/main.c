@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 /*
     Faça um programa que receba:
 
@@ -27,9 +26,8 @@ int main()
 {
     int codigo, quantidade;
     float unitario, total, desconto, final; 
-    printf("Digite o codigo do produto:\n");
+    
     scanf("%d", &codigo);
-    printf("Digite a quantidade do produto:\n");
     scanf("%d", &quantidade);
 
     if((codigo >= 1) && (codigo <=10)){

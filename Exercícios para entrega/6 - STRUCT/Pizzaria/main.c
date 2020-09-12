@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 struct Endereco{
@@ -52,7 +51,6 @@ int main()
     
     do{
         scanf(" %d", &opcaoMenu);
-
         switch(opcaoMenu){
             case 0:
                 printf("Encerrando sistema\n");
@@ -105,7 +103,6 @@ int cadastrarCliente(int i){
     if(i >= a){
         printf("Numero maximo de clientes cadastrados\n");
         fflush(stdin);
-        return i;
     }else{
         scanf(" %[^\n]", recebeTelefone);
         for(j=0;j<a;j++){
@@ -113,7 +110,6 @@ int cadastrarCliente(int i){
             if(verificador == 0){
                 printf("Cliente ja cadastrado\n");
                 fflush(stdin);
-                return i;
             }
         }
         if(verificador != 0){
@@ -124,9 +120,9 @@ int cadastrarCliente(int i){
             scanf(" %[^\n]", cliente[i].endereco.bairro);
             printf("Cliente cadastrado com sucesso\n");
             i++;
-            return i;
         }
     }
+
     return i;
 }
 
@@ -136,7 +132,6 @@ int cadastrarMotoqueiro(int i){
     if(i >= b){
         printf("Numero maximo de motoqueiros cadastrados\n");
         fflush(stdin);
-        return i;
     }else{
         scanf(" %d", &recebeCodigo);
         for(j=0;j<b;j++){
@@ -150,7 +145,6 @@ int cadastrarMotoqueiro(int i){
         if(verificador == 1){
             printf("Motoqueiro ja cadastrado\n");
             fflush(stdin);
-            return i;
         }else{
             motoqueiro[i].codigo = recebeCodigo;
             scanf(" %[^\n]", motoqueiro[i].cad.telefone);
@@ -160,9 +154,9 @@ int cadastrarMotoqueiro(int i){
             scanf(" %[^\n]", motoqueiro[i].cad.endereco.bairro);
             printf("Motoqueiro cadastrado com sucesso\n");
             i++;
-            return i;
         }
     }
+    return i;
 }
 
 int cadastrarPizza(int i){
@@ -171,7 +165,6 @@ int cadastrarPizza(int i){
     if(i >= c){
         printf("Numero maximo de pizzas cadastrados\n");
         fflush(stdin);
-        return i;
     }else{
         scanf(" %d", &recebeCodigo);
         for(j=0;j<c;j++){
@@ -182,16 +175,15 @@ int cadastrarPizza(int i){
         if(boo == 1){
             printf("Pizza ja cadastrada\n");
             fflush(stdin);
-            return i;
         }else{
             pizza[i].codigo = recebeCodigo;
             scanf(" %[^\n]", pizza[i].nome);
             scanf(" %f", &pizza[i].preco);
             printf("Pizza cadastrada com sucesso\n");
             i++;
-            return i;
         }
     }
+    return i;
 }
 
 int cadastrarPedido(int i){
@@ -201,7 +193,6 @@ int cadastrarPedido(int i){
     if(i >= d){
         printf("Numero maximo de pedidos realizados\n");
         fflush(stdin);
-        return i;
     }else{
         scanf(" %[^\n]", recebeTelefone);
         for(j=0;j<a;j++){
@@ -214,6 +205,7 @@ int cadastrarPedido(int i){
             printf("Cliente nao encontrado\n");
             return i;
         }
+
         scanf(" %d", &recebeCodigoPizza);
         for(j=0;j<c;j++){
             if(recebeCodigoPizza == pizza[j].codigo){
@@ -229,10 +221,13 @@ int cadastrarPedido(int i){
         pedido[i].situacao = 1;
         pedido[i].codigoMotoqueiro = 0;
         pedido[i].codigo = i;
-        printf("Pedido cadastrado\n");
+        
         i++;
-        return i;
+
+        printf("Pedido cadastrado\n");
+        
     }
+    return i;
 }
 
 void despacharPedido(){
@@ -246,7 +241,6 @@ void despacharPedido(){
     }
     if(i == d){
         printf("Pedido nao encontrado\n");
-        return;
     }else{
         switch(pedido[recebeCodigoPedido].situacao){
             case 1:
@@ -260,8 +254,10 @@ void despacharPedido(){
                     printf("Motoqueiro nao encontrado\n");
                     return;
                 }
+
                 pedido[recebeCodigoPedido].situacao = 2;
                 pedido[recebeCodigoPedido].codigoMotoqueiro = recebeCodigoMotoqueiro;
+
                 printf("Despachando pedido\n");
                 break;
             case 2:

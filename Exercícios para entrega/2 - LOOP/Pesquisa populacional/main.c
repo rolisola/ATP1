@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     A prefeitura de uma cidade fez uma pesquisa entre seus habitantes, coletando dados sobre o salário e o número de filhos. A prefeitura deseja saber:
@@ -32,6 +31,7 @@ int main()
         scanf("%f", &salario);
         if(salario >= 0){
             scanf("%d", &nFilhos);
+            
             somaSalario += salario;
             somaNFilhos += nFilhos;
 

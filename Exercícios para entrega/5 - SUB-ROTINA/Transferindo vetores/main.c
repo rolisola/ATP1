@@ -32,6 +32,7 @@ int main()
 
     recebe_vetor(vetorX, tamanho);
     maior_menor(vetorX, tamanho);
+    
     return 0;
 }
 

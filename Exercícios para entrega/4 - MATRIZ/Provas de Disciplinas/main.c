@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Faça um programa que receba a idade de oito alunos e armazene-as em um vetor. Em um outro vetor armazene o código de cinco disciplinas. Em uma matriz armazena a quantidade de provas que cada aluno fez em cada disciplina. Calcule e mostre:
@@ -53,21 +52,14 @@ int main()
 
     for(i=0;i<5;i++){
         if(codigoDisciplina[i] == pesquisaCodigoDisciplina){
-            //printf("\nCodigos iguais\n");
             for(j=0;j<8;j++){
                 if((idade[j] >= 18) && idade[j] <= 25){
-                    //printf("\nDentro da idade\n");
                     if(matriz[j][i] > 2){
                         contadorProvas++;
-                    }else{
-                        //printf("\nnao entrou no contador de provas %d ji%d i%d j%d\n", matriz[j][pesquisaCodigoDisciplina], matriz[j][i], i, j);
                     }
-                }else{
-                    //printf("\nFora da idade %d\n", idade[j]);
                 }
             }
         }else{
-            //printf("\nCodigos diferentes\n");
             contadorCodigosDiferentes++;
         }
     }
@@ -86,21 +78,6 @@ int main()
         }
     }
 
-    /*for(i=0;i<8;i++){
-        for(j=0;j<5;j++){
-            if(verificador == 1){
-                verificador = 0;
-                break;
-            }
-            if(matriz[i][j] == 0){
-                somaIdade += idade[i];
-                contador++;
-                verificador++;
-            }
-        }
-    }
-*/
-
     verificador = -1;
     for(i=0;i<8;i++){
 	    for(j=0;j<5;j++){
@@ -116,13 +93,5 @@ int main()
 
     printf("%f", mediaIdade);
 
-/*    printf("\n\n");
-    for(i=0;i<8;i++){
-        for(j=0;j<5;j++){
-            printf("%d ", matriz[i][j]);
-        }
-        printf("\n");
-    }
-*/
     return 0;
 }

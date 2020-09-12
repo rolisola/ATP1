@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Faça um programa que receba a idade de um nadador e mostre a sua categoria usando as regras a seguir:
@@ -15,9 +14,7 @@ int main()
 {
     int idade;
 
-    printf("Digite a idade do nadador: \n");
     scanf("%d", &idade);
-
     if((5<= idade) && (idade <=7)){
         printf("Infantil");
     }else if((8 <= idade) && (idade <= 10)){

@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Faça um programa que preencha dois vetores de dez posições cada um, determine e mostre um terceiro contendo os elementos dos dois vetores anteriores ordenados de maneira decrescente.
@@ -38,6 +37,5 @@ int main()
     for(i=0;i<20;i++){
         printf("%d ", c[i]);
     }
-
     return 0;
 }

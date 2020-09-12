@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     O sistema de avaliação de uma determinada disciplina obedece aos seguintes critérios:
@@ -37,7 +36,6 @@ int main()
     scanf("%d", &numeroAlunos);
 
     i = numeroAlunos;
-
     while(i > 0){
         scanf("%d", &matricula);
         scanf("%f", &n1);
@@ -46,7 +44,6 @@ int main()
         scanf("%d", &frequencia);
 
         mediaNotas = ((n1+n2+n3)/3);
-
         if(mediaNotas < menorNota){
             menorNota = mediaNotas;
         }

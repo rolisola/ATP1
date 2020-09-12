@@ -40,9 +40,6 @@ int main()
     printf("%.2f ", media(salario, qtd));
     idades(idade, qtd);
     printf("%d", qtdade(sexo, numeroFilhos, salario, qtd));
-    /*for(i=0;i<15;i++){
-        printf("\n %d %c %f %d", idade[i],sexo[i],salario[i],numeroFilhos[i]);
-    }*/
 
     return 0;
 }
@@ -52,7 +49,6 @@ void le_dados(int *idade, char *sexo, float *salario, int *filhos, int tam_v){
 
     for(i=0;i<tam_v;i++){
         scanf(" %d %c %f %d", &idade[i], &sexo[i], &salario[i], &filhos[i]);
-
         sexo[i] = toupper(sexo[i]);
     }
 }

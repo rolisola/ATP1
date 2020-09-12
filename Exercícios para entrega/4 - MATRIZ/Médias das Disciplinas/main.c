@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Uma escola deseja controlar as médias das disciplinas cursadas por seus alunos. Sabe-se que nessa escola existem duas turmas, com cinco alunos cada, e cada aluno cursa duas disciplinas. Crie um programa que armazene essas médias em uma matriz 2 X 5 X 2. Depois da leitura, ele deverá calcular e mostrar:
@@ -68,10 +67,8 @@ int main()
         }
         mediaTurma[i] = (somaTurma/((float)j*(float)k));
     }
-    printf("Media das turmas\n");
     for(i=0;i<2;i++){
         printf("%.2f\n", mediaTurma[i]);
     }
-
     return 0;
 }

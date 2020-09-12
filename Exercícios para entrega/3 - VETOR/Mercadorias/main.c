@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Faça um programa para controlar o estoque de mercadorias de uma empresa. Inicialmente, o programa deverá preencher dois vetores com dez posições cada, onde o primeiro corresponde ao código do produto e o segundo ao total desse produto em estoque. Logo após, o programa deverá ler um conjunto indeterminado de dados contendo o código de um cliente e o código do produto que ele deseja comprar, juntamente com a quantidade. Código do cliente igual à zero indica fim do programa. O programa deverá verificar:
@@ -59,6 +58,5 @@ int main()
     for(i=0;i<tam;i++){
         printf("%d: %d\n", codigoProduto[i], totalProdutos[i]);
     }
-    
     return 0;
 }

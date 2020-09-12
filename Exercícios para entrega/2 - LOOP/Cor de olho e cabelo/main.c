@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Faça um programa que receba a idade, peso, altura, cor dos olhos e a cor dos cabelos de 20  pessoas e que calcule e mostre:
@@ -35,7 +34,6 @@ int main()
 
     for(i=0;i<20;i++){
         scanf("%d %f %f %c %c", &idade, &peso, &altura, &corOlho, &corCabelo);
-
         if((idade > 50) && (peso < 60)){
             iIdadePeso++;
         }

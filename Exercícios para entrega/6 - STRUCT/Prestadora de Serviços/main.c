@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #define vt 4
@@ -35,7 +34,6 @@ int main()
 
     do{
         scanf(" %d", &opcaoMenu);
-
         switch(opcaoMenu){
             case 1:
                 c1 = cadastrarTipoServico(c1);
@@ -69,9 +67,7 @@ void inicializacao(){
 
     for(i=0;i<vt;i++){
         tipoServico[i].codigo = 0;
-        //for(j=0;j<desc;j++){
-            *tipoServico[i].descricao = *"";
-        //}
+        *tipoServico[i].descricao = *"";
     }
     for(i=0;i<dia;i++){
         for(j=0;j<coluna;j++){
@@ -79,9 +75,7 @@ void inicializacao(){
             historico[i][j].numeroServico = 0;
             historico[i][j].valor = 0;
             historico[i][j].servico.codigo = 0;
-            //for(k=0;k<desc;k++){
-                *historico[i][j].servico.descricao = *"";
-            //}
+            *historico[i][j].servico.descricao = *"";
         }
     }
 }
@@ -95,6 +89,7 @@ int cadastrarTipoServico(int i){
             break;
         }
     }
+
     scanf(" %d", &recebeCodigo);
     if(j == vt){
         printf("Cadastro de tipos de servicos lotado\n");
@@ -106,11 +101,15 @@ int cadastrarTipoServico(int i){
             goto saida;
         }
     }
+
     scanf(" %[^\n]", recebeDescricao);
-    tipoServico[i].codigo = recebeCodigo;
     strcpy(tipoServico[i].descricao, recebeDescricao);
+    tipoServico[i].codigo = recebeCodigo;
+
     printf("Tipo de servico cadastrado com sucesso\n");
+
     i++;
+
     saida:
         return i;
 }
@@ -129,6 +128,7 @@ int cadastrarServico(int i){
         printf("Todos os servicos prestados neste dia ja foram cadastrados\n");
         goto saida;
     }
+
     scanf(" %d", &recebeCodigoServico);
     for(j=0;j<vt;j++){
         if(tipoServico[j].codigo == recebeCodigoServico){
@@ -139,9 +139,11 @@ int cadastrarServico(int i){
         printf("Codigo de servico invalido\n");
         goto saida;
     }
+
     scanf(" %d", &recebeNumeroServico);
     scanf(" %f", &recebeValor);
     scanf(" %d", &recebeCodigoCliente);
+
     for(j=0;j<coluna;j++){
         if(historico[recebeDia-1][j].servico.codigo == 0){
             break;
@@ -156,8 +158,11 @@ int cadastrarServico(int i){
     historico[recebeDia-1][j].numeroServico = recebeNumeroServico;
     historico[recebeDia-1][j].valor = recebeValor;
     historico[recebeDia-1][j].codigoCliente = recebeCodigoCliente;
+
     printf("Servico cadastrado com sucesso\n");
+
     i++;
+    
     saida:
         return i;
 }

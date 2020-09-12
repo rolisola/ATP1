@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Um empresa decidiu dar uma gratificação de natal aos seus funcionários, baseada no número de horas extras e no número de horas que o funcionário faltou ao trabalho. O valor do prêmio é obtido pela consulta na tabela a seguir. Mostre a gratificação final.
@@ -19,13 +18,10 @@ int main()
     float h, gratificacao;
     int extraHoras, faltaHoras;
 
-    printf("Digite o numero de horas extras do funcionario:\n");
     scanf("%d", &extraHoras);
-    printf("Digite o numero de horas faltadas do funcionario:\n");
     scanf("%d", &faltaHoras);
 
     h = (extraHoras - (( 3 * faltaHoras) / 4));
-
     if(h <= 600){
         gratificacao = 100;
     }else if((h >= 601) && (h <= 1200)){

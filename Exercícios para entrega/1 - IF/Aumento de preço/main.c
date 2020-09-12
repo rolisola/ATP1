@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <ctype.h>
 
 /*
@@ -37,11 +36,8 @@ int main()
     char situacao;
     int categoria;
 
-    printf("Digite o preco: \n");
     scanf("%f", &preco);
-    printf("Digite a categoria (1, 2 ou 3):\n");
     scanf("%d", &categoria);
-    printf("Digite a situacao (R ou N):\n");
     scanf(" %c", &situacao);
 
     situacao = toupper(situacao);

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <ctype.h>
-#include <stdlib.h>
 
 /*
     Faça um programa que receba a altura (em metro) e o sexo (M ou F) de uma pessoa e que calcule e mostre o seu peso ideal, utilizando as seguintes fórmulas:
@@ -15,9 +14,7 @@ int main()
     float h, pesoIdeal;
     char sexo;
 
-    printf("Digite sua altura: (em metros)\n");
     scanf("%f", &h);
-    printf("Digite seu sexo: F ou M\n");
     scanf(" %c", &sexo);
     
     sexo = toupper(sexo);
@@ -29,7 +26,6 @@ int main()
         printf("Entranda Invalida");
     }
 
-    printf("Seu peso ideal:\n");
     printf("%.3f", pesoIdeal);
     
     return 0;

@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Um banco concederá um crédito especial aos seus clientes de acordo com o saldo médio no último ano. Faça um programa que receba o saldo médio de um cliente e calcule e mostre o valor do crédito , de acordo com a tabela a seguir.
@@ -18,9 +17,7 @@ int main()
 {
     float saldoMedio, credito;
 
-    printf("Digite o valor do saldo medio do cliente: \n");
     scanf("%f", &saldoMedio);
-
     if(saldoMedio <= 199.99){
         credito = (saldoMedio * 0.10);
     }else if((saldoMedio >= 200) && (saldoMedio <= 299.99)){
@@ -31,7 +28,6 @@ int main()
         credito = (saldoMedio * 0.30);
     }
 
-    printf("O credito do cliente e: ");
     printf("%.2f", credito);
 
     return 0;

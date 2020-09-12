@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 /*
     Faça um programa que receba o código de origem e mostre a sua procedência. A procedência obedece à tabela a seguir.
 
@@ -17,9 +16,7 @@ int main()
 {
     int codigo;
 
-    printf("digite o codigo de origem:\n");
     scanf("%d", &codigo);
-
     if(codigo == 1){
         printf("Sul");
     }else if(codigo == 2){

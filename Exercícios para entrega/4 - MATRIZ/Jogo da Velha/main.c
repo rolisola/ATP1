@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Crie uma matriz para armazenar o tabuleiro do jogo da velha. Faça um programa que permita interagir com 2 jogadores, lendo suas jogadas e apresentando na tela apenas a situação final do tabuleiro. A partida será realizada entre os 2 jogadores, e o programa terá apenas as funções de:
@@ -34,6 +33,7 @@ int main()
     int i, j, linhaPrimeiroJogador, colunaPrimeiroJogador, linhaSegundoJogador, colunaSegundoJogador, validade, vencedor=0, fimJogo=0, contador=0;
     char  jogoDaVelha[3][3]={{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
     char *localSequencia;
+
     do{
         do{
             scanf(" %d %d", &linhaPrimeiroJogador, &colunaPrimeiroJogador);
@@ -258,6 +258,5 @@ int main()
         }
         printf("\n");
     }
-
     return 0;
 }

@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
     Faça um programa que receba a idade e a altura de várias pessoas e que calcule e mostre a média das alturas das pessoas com mais de 50 anos. Para encerrar a entrada de dados digite idade menor ou igual a zero.
@@ -22,10 +21,8 @@ int main()
 
     do{
         scanf("%d", &idade);
-
         if(idade > 0){
             scanf("%f", &altura);
-
             if(idade > 50){
                 somaAltura += altura;
                 i++;

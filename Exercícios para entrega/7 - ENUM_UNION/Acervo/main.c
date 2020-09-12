@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 enum TIPOPUBLICACAO{
     livro=1,
@@ -43,6 +42,7 @@ int main()
 {
     int i=0, opcaoMenu;
     struct ACERVO acervo[5];
+
     do{
         scanf(" %d", &opcaoMenu);
         switch(opcaoMenu){
@@ -58,6 +58,7 @@ int main()
         }
 
     }while( opcaoMenu != 3);
+
     return 0;
 }
 
@@ -66,9 +67,7 @@ int cadastrarObra(int i, struct ACERVO *a){
     
     if(i < 5){
         scanf(" %d", &recebeOpcaoCadastro);
-
         a[i].tipos = (enum TIPOPUBLICACAO)recebeOpcaoCadastro;
-
         switch(a[i].tipos){
             case livro:
                 scanf(" %[^\n]", a[i].publicacao.livro.autor);
@@ -116,7 +115,6 @@ void consultarObra(struct ACERVO *a){
     enum TIPOPUBLICACAO tiPu;
 
     scanf(" %d", &recebeConsulta);
-
     tiPu = recebeConsulta;
 
     for(i=0;i<5;i++){
