@@ -248,7 +248,7 @@ verifica se o codigo da locação está cadastrado
 
 verifica se a locação foi cancelada
 
-`printf("ERRO: locacao foi cancelada\n");`
+`printf("ERRO: locacao cancelada\n");`
 
 ---
 
