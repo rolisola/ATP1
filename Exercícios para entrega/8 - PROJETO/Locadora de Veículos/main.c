@@ -1,4 +1,3 @@
-//ACHO QUE ESTA FUNCIONANDO CADASTRO DE LOCAÇÃO
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -79,14 +78,14 @@ void devolverCarro();
 void listarDadosLocacao();
 void listarLocacaoCliente();
 void listarLocacaoEmAberto();
-void listarLocacaoPorFrequencia();
+void listarFrequencia();
 
 int main()
 {
     int contadorCadastroCliente=0, contadorCadastroCarro=0, contadorCadastroLocacao=0, opcaoMenu, recebeCodigoLocacao;
-    //remove("saida.txt");
-    //freopen("6.txt", "r", stdin);
-    //freopen("saida.txt", "w", stdout);
+    remove("saida.txt");
+    freopen("6.txt", "r", stdin);
+    freopen("saida.txt", "w", stdout);
 
     do{
         scanf(" %d", &opcaoMenu);
@@ -126,11 +125,11 @@ int main()
                 listarLocacaoEmAberto();
                 break;
             case 11:
-                listarLocacaoPorFrequencia();
+                listarFrequencia();
                 break;
-            case 12:
+            /*case 12:
                 printaPorraToda();
-                break;
+                break;*/
             default:
                 erro(1);
                 break;
@@ -205,7 +204,7 @@ int cadastrarCliente(int i){
 
                 i++;
 
-                printf("Cadastrado com Sucesso CLIENTE CPF\n");
+                printf("Cadastrado com Sucesso\n");
                 break;
             case 2:
                 scanf(" %s", pessoa.juridica);
@@ -218,7 +217,7 @@ int cadastrarCliente(int i){
 
                 i++;
 
-                printf("Cadastrado com Sucesso CLIENTE CNPJ\n");
+                printf("Cadastrado com Sucesso\n");
                 break;
             default:
                 erro(1);
@@ -257,7 +256,7 @@ void atualizarCliente(){
                     return;
             }
 
-            printf("Cadastrado com Sucesso ATT CLIENTE CPF\n");
+            printf("Cadastrado com Sucesso\n");
             break;
         case 2:
             scanf(" %s", pessoa.juridica);
@@ -280,7 +279,7 @@ void atualizarCliente(){
                     return;
             }
 
-            printf("Cadastrado com Sucesso ATT CLIETNE CNPJ\n");
+            printf("Cadastrado com Sucesso\n");
             break;
         default:
             erro(1);
@@ -382,7 +381,7 @@ int cadastrarCarro(int i){
 
         i++;
 
-        printf("Cadastrado com Sucesso CARRO\n");
+        printf("Cadastrado com Sucesso\n");
     }else{
         erro(2);
     }
@@ -401,19 +400,19 @@ void cadastrarCategoria(){
     switch(recebeCategoria){
         case hatch:
             receberDadosCategoria(recebeCategoria);
-            printf("Cadastrado com Sucesso CATEG\n");
+            printf("Cadastrado com Sucesso\n");
             break;
         case sedan:
             receberDadosCategoria(recebeCategoria);
-            printf("Cadastrado com Sucesso CATEG\n");
+            printf("Cadastrado com Sucesso\n");
             break;
         case suv:
             receberDadosCategoria(recebeCategoria);
-            printf("Cadastrado com Sucesso CATEG\n");
+            printf("Cadastrado com Sucesso\n");
             break;
         case jipe:
             receberDadosCategoria(recebeCategoria);
-            printf("Cadastrado com Sucesso CATEG\n");
+            printf("Cadastrado com Sucesso\n");
             break;
         default:
             erro(1);
@@ -630,11 +629,6 @@ void devolverCarro(){
                 erro(4);
                 break;
             }
-            scanf(" %d %d %d", &recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano);
-            if(verificarData(&recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano) != 0){
-                erro(6);
-                break;
-            }
             posicaoMatriz = indiceDoCaralho(&recebeTipoPessoa, &posicaoCliente, pessoa);
             for(i=0;i<5;i++){
                 if((locacao[posicaoMatriz][i].codigo != 0) && (locacao[posicaoMatriz][i].dataDevolucao.ano == 0)){
@@ -643,6 +637,12 @@ void devolverCarro(){
             }
             if(i == 5){
                 erro(7);
+                break;
+            }
+
+            scanf(" %d %d %d", &recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano);
+            if(verificarData(&recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano) != 0){
+                erro(6);
                 break;
             }
 
@@ -686,11 +686,6 @@ void devolverCarro(){
                 erro(4);
                 break;
             }
-            scanf(" %d %d %d", &recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano);
-            if(verificarData(&recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano) != 0){
-                erro(6);
-                break;
-            }
             posicaoMatriz = indiceDoCaralho(&recebeTipoPessoa, &posicaoCliente, pessoa);
             for(i=0;i<5;i++){
                 if((locacao[posicaoMatriz][i].codigo != 0) && (locacao[posicaoMatriz][i].dataDevolucao.ano == 0)){
@@ -699,6 +694,12 @@ void devolverCarro(){
             }
             if(i == 5){
                 erro(7);
+                break;
+            }
+
+            scanf(" %d %d %d", &recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano);
+            if(verificarData(&recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano) != 0){
+                erro(6);
                 break;
             }
 
@@ -931,25 +932,144 @@ void listarLocacaoEmAberto(){
             break;
     }
 }
-/*
-int contadorCategoria(){
-    int batata;
-    return batata;
-}*/
-void listarLocacaoPorFrequencia(){
-    int recebeTipoPessoa;
+
+int *contadorFrequencia(int tipoPessoa, int *vetorContador){
+    int i, j;
+
+    switch(tipoPessoa){
+        case 1:
+            for(i=0;i<15;i++){
+                if(indice[i].tipoPessoa == 1){
+                    for(j=0;j<5;j++){
+                        switch(carro[procurarCarro(locacao[i][j].renavam)].categoria){
+                            case hatch:
+                                vetorContador[0]++;
+                                break;
+                            case sedan:
+                                vetorContador[1]++;
+                                break;
+                            case suv:
+                                vetorContador[2]++;
+                                break;
+                            case jipe:
+                                vetorContador[3]++;
+                                break;
+                        }
+                    }
+                }
+            }
+            break;
+        case 2:
+            for(i=0;i<15;i++){
+                if(indice[i].tipoPessoa == 2){
+                    for(j=0;j<5;j++){
+                        switch(carro[procurarCarro(locacao[i][j].renavam)].categoria){
+                            case hatch:
+                                vetorContador[0]++;
+                                break;
+                            case sedan:
+                                vetorContador[1]++;
+                                break;
+                            case suv:
+                                vetorContador[2]++;
+                                break;
+                            case jipe:
+                                vetorContador[3]++;
+                                break;
+                        }
+                    }
+                }
+            }
+            break;
+    }
+    return vetorContador;
+}
+
+int comparador(const void *a, const void *b){
+    int diferenca;
+
+    diferenca = (*(int*)b - *(int*)a);
+
+    return diferenca;
+}
+
+int *ordenador(int *frequencia, int *auxiliar, int *posicao){
+    int i, j, k, l, m, verificador=0;
+
+    for(i=0;i<4;i++){
+        for(j=0;j<4;j++){
+            if(frequencia[i] == auxiliar[j]){
+                posicao[i] = j;
+                break;
+            }
+        }
+        for(j=0;j<4;j++){
+            for(k=j+1;k<4;k++){
+                if(posicao[j] == posicao[k]){
+                    for(l=0;l<4;l++){
+                        for(m=0;m<4;m++){
+                            if(posicao[m] == l){
+                                verificador = 1;
+                                break;
+                                }
+						}
+						if(verificador == 0){
+							posicao[k] = l;
+						}else{
+							verificador = 0;
+						}
+					}
+				}
+			}
+        }
+    }
+    return posicao;
+}
+
+void printarFrequencia(int *posicao, int *frequencia){
+    for(int i=0;i<4;i++){
+        if(posicao[i] == 0){
+            printf("Categoria hatch: %d\n", frequencia[i]);
+        }else if(posicao[i] == 1){
+            printf("Categoria sedan: %d\n", frequencia[i]);
+        }else if(posicao[i] == 2){
+            printf("Categoria suv: %d\n", frequencia[i]);
+        }else if(posicao[i] == 3){
+            printf("Categoria jipe: %d\n", frequencia[i]);
+        }
+    }
+}
+
+void listarFrequencia(){
+    int i, recebeTipoPessoa, vetorFrequencia[]={0,0,0,0}, vetorAuxiliar[4], vetorPosicao[4];
+    int *ponteiro, *posicao;
+
     scanf(" %d", &recebeTipoPessoa);
     switch(recebeTipoPessoa){
         case 1:
+            ponteiro = contadorFrequencia(recebeTipoPessoa, vetorFrequencia);
+            for(i=0;i<4;i++){
+                vetorAuxiliar[i] = vetorFrequencia[i];
+            }
+            qsort(vetorFrequencia, 4, sizeof(int), comparador);
+            posicao = ordenador(vetorFrequencia, vetorAuxiliar, vetorPosicao);
 
+            printarFrequencia(posicao, ponteiro);
             break;
         case 2:
+            ponteiro = contadorFrequencia(recebeTipoPessoa, vetorFrequencia);
+            for(i=0;i<4;i++){
+                vetorAuxiliar[i] = vetorFrequencia[i];
+            }
+            qsort(vetorFrequencia, 4, sizeof(int), comparador);
+            posicao = ordenador(vetorFrequencia, vetorAuxiliar, vetorPosicao);
+
+            printarFrequencia(posicao, ponteiro);
             break;
         default:
             erro(1);
             break;
     }
-
 }
 
 void erro(int erro){
@@ -990,7 +1110,7 @@ void erro(int erro){
 void sair(){
     exit(0);
 }
-
+/*
 void printaPorraToda(){
     int i=0,j=0;
     printf("\nClientes\n");
@@ -1031,4 +1151,4 @@ void printaPorraToda(){
             }
         }
     }
-}
+}*/
