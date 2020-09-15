@@ -83,9 +83,9 @@ void listarFrequencia();
 int main()
 {
     int contadorCadastroCliente=0, contadorCadastroCarro=0, contadorCadastroLocacao=0, opcaoMenu, recebeCodigoLocacao;
-    remove("saida.txt");
-    freopen("6.txt", "r", stdin);
-    freopen("saida.txt", "w", stdout);
+    //remove("saida.txt");
+    //freopen("6.txt", "r", stdin);
+    //freopen("saida.txt", "w", stdout);
 
     do{
         scanf(" %d", &opcaoMenu);
@@ -127,9 +127,9 @@ int main()
             case 11:
                 listarFrequencia();
                 break;
-            /*case 12:
+            case 12:
                 printaPorraToda();
-                break;*/
+                break;
             default:
                 erro(1);
                 break;
@@ -432,7 +432,7 @@ int verificarData(int *dia, int *mes, int *ano){
             return 0;
         }
     }
-    return 1;
+    return -1;
 }
 
 int indiceDoCaralho(int *tipoPessoa, int *posicaoCliente, union PESSOA pessoa){
@@ -641,12 +641,12 @@ void devolverCarro(){
             }
 
             scanf(" %d %d %d", &recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano);
-            if(verificarData(&recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano) != 0){
+            diferencaEmDias = (int)calcularDiferencaDatas(&locacao[posicaoMatriz][i].dataRetirada, &recebeDataDevolucao);
+            if((verificarData(&recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano) != 0) || (diferencaEmDias < 0)){
                 erro(6);
                 break;
             }
 
-            diferencaEmDias = (int)calcularDiferencaDatas(&locacao[posicaoMatriz][i].dataRetirada, &recebeDataDevolucao);
             if(diferencaEmDias == 0){
                 locacao[posicaoMatriz][i].codigo = 0;
                 locacao[posicaoMatriz][i].renavam[0] = '\0';
@@ -665,7 +665,7 @@ void devolverCarro(){
             locacao[posicaoMatriz][i].dataDevolucao.ano = recebeDataDevolucao.ano;
 
             posicaoCarro = procurarCarro(locacao[posicaoMatriz][i].renavam);
-            locacao[posicaoMatriz][i].valorDevido = (categCarro[carro[posicaoCarro].categoria-1].valorDiaria * (float)diferencaEmDias);
+            locacao[posicaoMatriz][i].valorDevido = (categCarro[carro[posicaoCarro].categoria-1].valorDiaria * (float)(diferencaEmDias-1));
             if(i!=0){
                 posicaoCarroLocacaoAnterior = procurarCarro(locacao[posicaoMatriz][i-1].renavam);
                 locacao[posicaoMatriz][i].desconto = ((categCarro[carro[posicaoCarroLocacaoAnterior].categoria-1].pontosFidelidade * 50)/1000);
@@ -698,12 +698,12 @@ void devolverCarro(){
             }
 
             scanf(" %d %d %d", &recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano);
-            if(verificarData(&recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano) != 0){
+            diferencaEmDias = (int)calcularDiferencaDatas(&locacao[posicaoMatriz][i].dataRetirada, &recebeDataDevolucao);
+            if((verificarData(&recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano) != 0) || (diferencaEmDias < 0)){
                 erro(6);
                 break;
             }
 
-            diferencaEmDias = (int)calcularDiferencaDatas(&locacao[posicaoMatriz][i].dataRetirada, &recebeDataDevolucao);
             if(diferencaEmDias == 0){
                 locacao[posicaoMatriz][i].codigo = 0;
                 locacao[posicaoMatriz][i].renavam[0] = '\0';
@@ -770,7 +770,7 @@ void listarDadosLocacao(int *codigoLocacao){
         }
     }
     if(i == 15){
-        erro(8);
+        erro(4);
     }
 }
 
@@ -904,7 +904,7 @@ void listarLocacaoEmAberto(){
         case 1:
             for(i=0;i<15;i++){
                 for(j=0;j<5;j++){
-                    if((locacao[i][j].tipoCliente == 1) && (locacao[i][j].codigo != 0) && (locacao[i][j].dataDevolucao.dia == 0)){
+                    if((locacao[i][j].tipoCliente == 1) && (locacao[i][j].dataRetirada.dia != 0) && (locacao[i][j].dataDevolucao.dia == 0)){
                         printarLocacao(&i, &j);
                         cont++;
                     }
@@ -1041,7 +1041,7 @@ void printarFrequencia(int *posicao, int *frequencia){
 }
 
 void listarFrequencia(){
-    int i, recebeTipoPessoa, vetorFrequencia[]={0,0,0,0}, vetorAuxiliar[4], vetorPosicao[4];
+    int i, recebeTipoPessoa, vetorFrequencia[]={0,0,0,0}, vetorAuxiliar[4], vetorPosicao[]={0,1,2,3};
     int *ponteiro, *posicao;
 
     scanf(" %d", &recebeTipoPessoa);
@@ -1110,7 +1110,7 @@ void erro(int erro){
 void sair(){
     exit(0);
 }
-/*
+
 void printaPorraToda(){
     int i=0,j=0;
     printf("\nClientes\n");
@@ -1151,4 +1151,4 @@ void printaPorraToda(){
             }
         }
     }
-}*/
+}
