@@ -38,11 +38,11 @@ struct LOCACAO{
     struct DATA dataDevolucao;
     int codigo, tipoCliente;
     char renavam[12];
+    float valorDevido, desconto;
 };
 struct VETORSEMSENTIDO{
     union PESSOA pessoa;
     int posicao, tipoPessoa;
-
 };
 
 struct CLIENTE cliente[15];
@@ -83,11 +83,10 @@ void listarLocacaoPorFrequencia();
 
 int main()
 {
-    int contadorCadastroCliente=0, contadorCadastroCarro=0, contadorCadastroLocacao=0, opcaoMenu;
-
-    remove("saida.txt");
-    freopen("6.txt", "r", stdin);
-    freopen("saida.txt", "w", stdout);
+    int contadorCadastroCliente=0, contadorCadastroCarro=0, contadorCadastroLocacao=0, opcaoMenu, recebeCodigoLocacao;
+    //remove("saida.txt");
+    //freopen("6.txt", "r", stdin);
+    //freopen("saida.txt", "w", stdout);
 
     do{
         scanf(" %d", &opcaoMenu);
@@ -114,19 +113,20 @@ int main()
                 contadorCadastroLocacao = cadastrarLocacaoCarro(contadorCadastroLocacao);
                 break;
             case 7:
-                //devolverCarro();
+                devolverCarro();
                 break;
             case 8:
-                //listarDadosLocacao();
+                scanf(" %d", &recebeCodigoLocacao);
+                listarDadosLocacao(&recebeCodigoLocacao);
                 break;
             case 9:
-                //listarLocacaoCliente();
+                listarLocacaoCliente();
                 break;
             case 10:
-               // listarLocacaoEmAberto();
+                listarLocacaoEmAberto();
                 break;
             case 11:
-              //  listarLocacaoPorFrequencia();
+                listarLocacaoPorFrequencia();
                 break;
             case 12:
                 printaPorraToda();
@@ -189,14 +189,14 @@ void receberDadosCliente(int tipo, int *i){
 
 int cadastrarCliente(int i){
     union PESSOA pessoa;
-    int tipoPessoa;
+    int recebeTipoPessoa;
 
     if(i < 15){
-        scanf(" %d", &tipoPessoa);
-        switch(tipoPessoa){
+        scanf(" %d", &recebeTipoPessoa);
+        switch(recebeTipoPessoa){
             case 1:
                 scanf(" %s", pessoa.fisica);
-                if(procurarCliente(&tipoPessoa, pessoa) != -1){
+                if(procurarCliente(&recebeTipoPessoa, pessoa) != -1){
                     erro(3);
                     break;
                 }
@@ -205,11 +205,11 @@ int cadastrarCliente(int i){
 
                 i++;
 
-                printf("Cadastrado com Sucesso\n");
+                printf("Cadastrado com Sucesso CLIENTE CPF\n");
                 break;
             case 2:
                 scanf(" %s", pessoa.juridica);
-                if(procurarCliente(&tipoPessoa, pessoa) != -1){
+                if(procurarCliente(&recebeTipoPessoa, pessoa) != -1){
                     erro(3);
                     break;
                 }
@@ -218,7 +218,7 @@ int cadastrarCliente(int i){
 
                 i++;
 
-                printf("Cadastrado com Sucesso\n");
+                printf("Cadastrado com Sucesso CLIENTE CNPJ\n");
                 break;
             default:
                 erro(1);
@@ -232,13 +232,13 @@ int cadastrarCliente(int i){
 
 void atualizarCliente(){
     union PESSOA pessoa;
-    int tipoPessoa, posicaoCliente, opcaoSubMenu;
+    int recebeTipoPessoa, posicaoCliente, opcaoSubMenu;
 
-    scanf(" %d", &tipoPessoa);
-    switch(tipoPessoa){
+    scanf(" %d", &recebeTipoPessoa);
+    switch(recebeTipoPessoa){
         case 1:
             scanf(" %s", pessoa.fisica);
-            posicaoCliente = procurarCliente(&tipoPessoa, pessoa);
+            posicaoCliente = procurarCliente(&recebeTipoPessoa, pessoa);
             if(posicaoCliente == -1){
                 erro(4);
                 break;
@@ -257,11 +257,11 @@ void atualizarCliente(){
                     return;
             }
 
-            printf("Cadastrado com Sucesso\n");
+            printf("Cadastrado com Sucesso ATT CLIENTE CPF\n");
             break;
         case 2:
             scanf(" %s", pessoa.juridica);
-            posicaoCliente = procurarCliente(&tipoPessoa, pessoa);
+            posicaoCliente = procurarCliente(&recebeTipoPessoa, pessoa);
             if(posicaoCliente == -1){
                 erro(4);
                 break;
@@ -280,7 +280,7 @@ void atualizarCliente(){
                     return;
             }
 
-            printf("Cadastrado com Sucesso\n");
+            printf("Cadastrado com Sucesso ATT CLIETNE CNPJ\n");
             break;
         default:
             erro(1);
@@ -299,13 +299,13 @@ void printarCliente(int *i){
 
 void listarCliente(){
     union PESSOA pessoa;
-    int tipoPessoa, posicaoCliente;
+    int recebeTipoPessoa, posicaoCliente;
 
-    scanf(" %d", &tipoPessoa);
-    switch(tipoPessoa){
+    scanf(" %d", &recebeTipoPessoa);
+    switch(recebeTipoPessoa){
         case 1:
-            scanf(" %[^\n]%*c", pessoa.fisica);
-            posicaoCliente = procurarCliente(&tipoPessoa, pessoa);
+            scanf(" %s", pessoa.fisica);
+            posicaoCliente = procurarCliente(&recebeTipoPessoa, pessoa);
             if(posicaoCliente == -1){
                 erro(4);
                 break;
@@ -314,8 +314,8 @@ void listarCliente(){
             printarCliente(&posicaoCliente);
             break;
         case 2:
-            scanf(" %[^\n]%*c", pessoa.juridica);
-            posicaoCliente = procurarCliente(&tipoPessoa, pessoa);
+            scanf(" %s", pessoa.juridica);
+            posicaoCliente = procurarCliente(&recebeTipoPessoa, pessoa);
             if(posicaoCliente == -1){
                 erro(4);
                 break;
@@ -361,14 +361,14 @@ int cadastrarCarro(int i){
             return i;
         }
 
-        scanf(" %u", &carro[i].cor);
-        if(verificarCor(carro[i].cor) != 0){
+        scanf(" %u", &carro[i].categoria);
+        if(verificarCategoria(carro[i].categoria) != 0){
             erro(1);
             return i;
         }
 
-        scanf(" %u", &carro[i].categoria);
-        if(verificarCategoria(carro[i].categoria) != 0){
+        scanf(" %u", &carro[i].cor);
+        if(verificarCor(carro[i].cor) != 0){
             erro(1);
             return i;
         }
@@ -424,16 +424,16 @@ void cadastrarCategoria(){
 int verificarData(int *dia, int *mes, int *ano){
     if((*dia >= 1 && *dia <= 31) && (*mes >= 1 && *mes <= 12)){
         if((*dia <= 29 && *mes == 2) && *mes == 2){
-            return 1;
+            return 0;
         }
         if((*dia <= 30) && (*mes == 4 || *mes == 6 || *mes == 9 || *mes == 11)){
-            return 1;
+            return 0;
         }
         if((*dia <=31) && (*mes == 1 || *mes == 3 || *mes == 5 || *mes == 7 || *mes == 8 || *mes == 10 || *mes == 12)){
-            return 1;
+            return 0;
         }
     }
-    return 0;
+    return 1;
 }
 
 int indiceDoCaralho(int *tipoPessoa, int *posicaoCliente, union PESSOA pessoa){
@@ -477,11 +477,12 @@ int indiceDoCaralho(int *tipoPessoa, int *posicaoCliente, union PESSOA pessoa){
     }
     return i;
 }
-//ESSA FUNÇÃO TA FEIA QUE DÓI MAS FUNCIONA
+
 int cadastrarLocacaoCarro(int i){
     union PESSOA pessoa;
-    int j, k, posicaoCarro, tipoPessoa, posicaoCliente, posicaoMatriz, diaRetirada, mesRetirada, anoRetirada;
+    int j, k, posicaoCarro, recebeTipoPessoa, posicaoCliente, posicaoMatriz, diaRetirada, mesRetirada, anoRetirada;
     char recebeRenavam[12];
+
     scanf(" %s", recebeRenavam);
     posicaoCarro = procurarCarro(recebeRenavam);
     if(posicaoCarro != -1){
@@ -493,16 +494,18 @@ int cadastrarLocacaoCarro(int i){
                 }
             }
         }
-        scanf(" %d", &tipoPessoa);
-        switch(tipoPessoa){
+
+        scanf(" %d", &recebeTipoPessoa);
+        switch(recebeTipoPessoa){
             case 1:
                 scanf(" %s", pessoa.fisica);
-                posicaoCliente = procurarCliente(&tipoPessoa, pessoa);
+                posicaoCliente = procurarCliente(&recebeTipoPessoa, pessoa);
                 if(posicaoCliente == -1){
                     erro(4);
                     break;
                 }
-                posicaoMatriz = indiceDoCaralho(&tipoPessoa, &posicaoCliente, pessoa);
+
+                posicaoMatriz = indiceDoCaralho(&recebeTipoPessoa, &posicaoCliente, pessoa);
                 for(k=0;k<5;k++){
                     if((locacao[posicaoMatriz][k].dataRetirada.ano != 0) && (locacao[posicaoMatriz][k].dataDevolucao.ano == 0)){
                         erro(5);
@@ -518,8 +521,9 @@ int cadastrarLocacaoCarro(int i){
                     erro(2);
                     break;
                 }
+
                 scanf(" %d %d %d", &diaRetirada, &mesRetirada, &anoRetirada);
-                if(verificarData(&diaRetirada, &mesRetirada, &anoRetirada) == 0){
+                if(verificarData(&diaRetirada, &mesRetirada, &anoRetirada) != 0){
                     erro(6);
                     break;
                 }
@@ -533,17 +537,20 @@ int cadastrarLocacaoCarro(int i){
                 locacao[posicaoMatriz][k].dataDevolucao.ano = 0;
                 locacao[posicaoMatriz][k].tipoCliente = 1;
                 locacao[posicaoMatriz][k].codigo = (1001+i);
+
                 i++;
+
                 printf("%d cadastrado com sucesso\n", locacao[posicaoMatriz][k].codigo);
                 break;
             case 2:
                 scanf(" %s", pessoa.juridica);
-                posicaoCliente = procurarCliente(&tipoPessoa, pessoa);
+                posicaoCliente = procurarCliente(&recebeTipoPessoa, pessoa);
                 if(posicaoCliente == -1){
                     erro(4);
                     break;
                 }
-                posicaoMatriz = indiceDoCaralho(&tipoPessoa, &posicaoCliente, pessoa);
+
+                posicaoMatriz = indiceDoCaralho(&recebeTipoPessoa, &posicaoCliente, pessoa);
                 for(k=0;k<5;k++){
                     if((locacao[posicaoMatriz][k].dataRetirada.ano != 0) && (locacao[posicaoMatriz][k].dataDevolucao.ano == 0)){
                         erro(5);
@@ -559,8 +566,9 @@ int cadastrarLocacaoCarro(int i){
                     erro(2);
                     break;
                 }
+
                 scanf(" %d %d %d", &diaRetirada, &mesRetirada, &anoRetirada);
-                if(verificarData(&diaRetirada, &mesRetirada, &anoRetirada) == 0){
+                if(verificarData(&diaRetirada, &mesRetirada, &anoRetirada) != 0){
                     erro(6);
                     break;
                 }
@@ -574,7 +582,9 @@ int cadastrarLocacaoCarro(int i){
                 locacao[posicaoMatriz][k].dataDevolucao.ano = 0;
                 locacao[posicaoMatriz][k].tipoCliente = 1;
                 locacao[posicaoMatriz][k].codigo = (1001+i);
+
                 i++;
+
                 printf("%d cadastrado com sucesso\n", locacao[posicaoMatriz][k].codigo);
                 break;
             default:
@@ -591,14 +601,18 @@ int calcularDiferencaDatas(struct DATA *dataRetirada, struct DATA *dataDevolucao
     struct tm dR={0}, dD={0};
     int diferenca;
 
-    dR.tm_year = dataRetirada->ano;
+    dR.tm_year = dataRetirada->ano-1900;
     dR.tm_mon = dataRetirada->mes;
     dR.tm_mday = dataRetirada->dia;
-    dD.tm_year = dataDevolucao->ano;
+    dD.tm_year = dataDevolucao->ano-1900;
     dD.tm_mon = dataDevolucao->mes;
     dD.tm_mday = dataDevolucao->dia;
 
-    diferenca = difftime(mktime(&dD),mktime(&dR));
+    time_t data1 = mktime(&dR);
+    time_t data2 = mktime(&dD);
+
+    diferenca = (int)difftime(data2, data1);
+    diferenca = diferenca/86400;
 
     return diferenca;
 }
@@ -606,22 +620,22 @@ int calcularDiferencaDatas(struct DATA *dataRetirada, struct DATA *dataDevolucao
 void devolverCarro(){
     union PESSOA pessoa;
     struct DATA recebeDataDevolucao;
-    int i, tipoPessoa, posicaoCliente, posicaoMatriz, diferenca;
-    scanf(" %d", &tipoPessoa);
-    switch(tipoPessoa){
+    int i, recebeTipoPessoa, posicaoCliente, posicaoMatriz, diferencaEmDias, posicaoCarro, posicaoCarroLocacaoAnterior;
+    scanf(" %d", &recebeTipoPessoa);
+    switch(recebeTipoPessoa){
         case 1:
             scanf(" %s", pessoa.fisica);
-            posicaoCliente = procurarCliente(&tipoPessoa, pessoa);
+            posicaoCliente = procurarCliente(&recebeTipoPessoa, pessoa);
             if(posicaoCliente == -1){
                 erro(4);
                 break;
             }
             scanf(" %d %d %d", &recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano);
-            if(verificarData(&recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano) == 0){
+            if(verificarData(&recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano) != 0){
                 erro(6);
                 break;
             }
-            posicaoMatriz = indiceDoCaralho(&tipoPessoa, &posicaoCliente, pessoa);
+            posicaoMatriz = indiceDoCaralho(&recebeTipoPessoa, &posicaoCliente, pessoa);
             for(i=0;i<5;i++){
                 if((locacao[posicaoMatriz][i].codigo != 0) && (locacao[posicaoMatriz][i].dataDevolucao.ano == 0)){
                     break;
@@ -631,8 +645,9 @@ void devolverCarro(){
                 erro(7);
                 break;
             }
-            diferenca = calcularDiferencaDatas(&locacao[posicaoMatriz][i].dataRetirada, &recebeDataDevolucao);
-            if(diferenca == 0){
+
+            diferencaEmDias = (int)calcularDiferencaDatas(&locacao[posicaoMatriz][i].dataRetirada, &recebeDataDevolucao);
+            if(diferencaEmDias == 0){
                 locacao[posicaoMatriz][i].codigo = 0;
                 locacao[posicaoMatriz][i].renavam[0] = '\0';
                 locacao[posicaoMatriz][i].dataRetirada.dia = 0;
@@ -641,27 +656,42 @@ void devolverCarro(){
                 locacao[posicaoMatriz][i].dataDevolucao.dia = 0;
                 locacao[posicaoMatriz][i].dataDevolucao.mes = 0;
                 locacao[posicaoMatriz][i].dataDevolucao.ano = 0;
-                erro(8);
+
+                printf("Locacao cancelada\n");
                 break;
             }
             locacao[posicaoMatriz][i].dataDevolucao.dia = recebeDataDevolucao.dia;
             locacao[posicaoMatriz][i].dataDevolucao.mes = recebeDataDevolucao.mes;
             locacao[posicaoMatriz][i].dataDevolucao.ano = recebeDataDevolucao.ano;
 
+            posicaoCarro = procurarCarro(locacao[posicaoMatriz][i].renavam);
+            locacao[posicaoMatriz][i].valorDevido = (categCarro[carro[posicaoCarro].categoria-1].valorDiaria * (float)diferencaEmDias);
+            if(i!=0){
+                posicaoCarroLocacaoAnterior = procurarCarro(locacao[posicaoMatriz][i-1].renavam);
+                locacao[posicaoMatriz][i].desconto = ((categCarro[carro[posicaoCarroLocacaoAnterior].categoria-1].pontosFidelidade * 50)/1000);
+            }else{
+                locacao[posicaoMatriz][i].desconto = 0;
+            }
+            if(locacao[posicaoMatriz][i].desconto > locacao[posicaoMatriz][i].valorDevido*0.3){
+                locacao[posicaoMatriz][i].desconto = locacao[posicaoMatriz][i].valorDevido*0.3;
+            }
+
+            printf("Valor devido: %.2f\n", locacao[posicaoMatriz][i].valorDevido);
+            printf("Desconto: %.2f\n", locacao[posicaoMatriz][i].desconto);
             break;
         case 2:
             scanf(" %s", pessoa.juridica);
-            posicaoCliente = procurarCliente(&tipoPessoa, pessoa);
+            posicaoCliente = procurarCliente(&recebeTipoPessoa, pessoa);
             if(posicaoCliente == -1){
                 erro(4);
                 break;
             }
-            scanf(" %d %d %d", &diaDevolucao, &mesDevolucao, &anoDevolucao);
-            if(verificarData(&diaDevolucao, &mesDevolucao, &anoDevolucao) == 0){
+            scanf(" %d %d %d", &recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano);
+            if(verificarData(&recebeDataDevolucao.dia, &recebeDataDevolucao.mes, &recebeDataDevolucao.ano) != 0){
                 erro(6);
                 break;
             }
-            posicaoMatriz = indiceDoCaralho(&tipoPessoa, &posicaoCliente, pessoa);
+            posicaoMatriz = indiceDoCaralho(&recebeTipoPessoa, &posicaoCliente, pessoa);
             for(i=0;i<5;i++){
                 if((locacao[posicaoMatriz][i].codigo != 0) && (locacao[posicaoMatriz][i].dataDevolucao.ano == 0)){
                     break;
@@ -671,7 +701,9 @@ void devolverCarro(){
                 erro(7);
                 break;
             }
-            if((locacao[posicaoMatriz][i].dataDevolucao.dia == locacao[posicaoMatriz][i].dataRetirada.dia) && (locacao[posicaoMatriz][i].dataDevolucao.mes == locacao[posicaoMatriz][i].dataRetirada.mes)){
+
+            diferencaEmDias = (int)calcularDiferencaDatas(&locacao[posicaoMatriz][i].dataRetirada, &recebeDataDevolucao);
+            if(diferencaEmDias == 0){
                 locacao[posicaoMatriz][i].codigo = 0;
                 locacao[posicaoMatriz][i].renavam[0] = '\0';
                 locacao[posicaoMatriz][i].dataRetirada.dia = 0;
@@ -683,9 +715,25 @@ void devolverCarro(){
                 erro(8);
                 break;
             }
-            locacao[posicaoMatriz][i].dataDevolucao.dia = diaDevolucao;
-            locacao[posicaoMatriz][i].dataDevolucao.mes = mesDevolucao;
-            locacao[posicaoMatriz][i].dataDevolucao.ano = anoDevolucao;
+
+            locacao[posicaoMatriz][i].dataDevolucao.dia = recebeDataDevolucao.dia;
+            locacao[posicaoMatriz][i].dataDevolucao.mes = recebeDataDevolucao.mes;
+            locacao[posicaoMatriz][i].dataDevolucao.ano = recebeDataDevolucao.ano;
+
+            posicaoCarro = procurarCarro(locacao[posicaoMatriz][i].renavam);
+            locacao[posicaoMatriz][i].valorDevido = (categCarro[carro[posicaoCarro].categoria-1].valorDiaria * (float)diferencaEmDias);
+            if(i!=0){
+                posicaoCarroLocacaoAnterior = procurarCarro(locacao[posicaoMatriz][i-1].renavam);
+                locacao[posicaoMatriz][i].desconto = ((categCarro[carro[posicaoCarroLocacaoAnterior].categoria-1].pontosFidelidade * 50)/1000);
+            }else{
+                locacao[posicaoMatriz][i].desconto = 0;
+            }
+            if(locacao[posicaoMatriz][i].desconto > locacao[posicaoMatriz][i].valorDevido*0.3){
+                locacao[posicaoMatriz][i].desconto = locacao[posicaoMatriz][i].valorDevido*0.3;
+            }
+
+            printf("Valor devido: %.2f\n", locacao[posicaoMatriz][i].valorDevido);
+            printf("Desconto: %.2f\n", locacao[posicaoMatriz][i].desconto);
             break;
         default:
             erro(1);
@@ -693,37 +741,93 @@ void devolverCarro(){
     }
 }
 
-//void listarDadosLocacao(){}
-
-/*int subMenuLocacaoCliente(int *tipoPessoa){
-    switch(*tipoPessoa){
+void printarLocacao(int *i,int *j){
+    printf("codigo da locacao: %d\n", locacao[*i][*j].codigo);
+    switch(locacao[*i][*j].tipoCliente){
         case 1:
-
+            printf("cpf: %s\n", locacao[*i][*j].pessoa.fisica);
+            break;
         case 2:
-        case 3:
-        default:
-            return 1;
+            printf("cnpj: %s\n", locacao[*i][*j].pessoa.juridica);
+            break;
     }
+    printf("nome: %s\n", cliente[procurarCliente(&locacao[*i][*j].tipoCliente, locacao[*i][*j].pessoa)].nome);
+    printf("renavam: %s\n", locacao[*i][*j].renavam);
+    printf("data retirada: %02d/%02d/%02d\n", locacao[*i][*j].dataRetirada.dia,locacao[*i][*j].dataRetirada.mes, locacao[*i][*j].dataRetirada.ano);
+    printf("data entrega: %02d/%02d/%02d\n", locacao[*i][*j].dataDevolucao.dia, locacao[*i][*j].dataDevolucao.mes, locacao[*i][*j].dataDevolucao.ano);
 }
-void listarLocacaoCliente(){
-    union PESSOA pessoa;
-    int tipoPessoa, posicaoCliente, subMenu;
-    scanf(" %d", &tipoPessoa);
-    switch(tipoPessoa){
-        case 1:
-            scanf(" %s", pessoa.fisica);
-            posicaoCliente = procurarCliente(&tipoPessoa, pessoa);
-            if(posicaoCliente == -1){
+
+void listarDadosLocacao(int *codigoLocacao){
+    int i, j;
+
+    for(i=0;i<15;i++){
+        for(j=0;j<5;j++){
+            if(locacao[i][j].codigo == *codigoLocacao){
+                printarLocacao(&i, &j);
                 return;
             }
-            scanf(" %d", &subMenu);
+        }
+    }
+    if(i == 15){
+        erro(8);
+    }
+}
 
+void listarLocacaoCliente(){
+    union PESSOA pessoa;
+    int i, cont=0, recebeTipoPessoa, posicaoCliente, posicaoMatriz, subMenu;
+
+    scanf(" %d", &recebeTipoPessoa);
+    switch(recebeTipoPessoa){
+        case 1:
+            scanf(" %s", pessoa.fisica);
+            posicaoCliente = procurarCliente(&recebeTipoPessoa, pessoa);
+            if(posicaoCliente == -1){
+                erro(4);
+                return;
+            }
+            posicaoMatriz = indiceDoCaralho(&recebeTipoPessoa, &posicaoCliente, pessoa);
+
+            scanf(" %d", &subMenu);
             switch(subMenu){
                 case 1:
+                    for(i=0;i<5;i++){
+                        if(locacao[posicaoMatriz][i].codigo != 0){
+                            listarDadosLocacao(&locacao[posicaoMatriz][i].codigo);
+                            i++;
+                        }else{
+                            cont++;
+                        }
+                    }
+                    if(cont == 5){
+                        erro(9);
+                    }
                     break;
                 case 2:
+                    for(i=0;i<5;i++){
+                        if((locacao[posicaoMatriz][i].codigo != 0) && (locacao[posicaoMatriz][i].dataDevolucao.dia != 0)){
+                            listarDadosLocacao(&locacao[posicaoMatriz][i].codigo);
+                            i++;
+                        }else{
+                            cont++;
+                        }
+                    }
+                    if(cont == 5){
+                        erro(9);
+                    }
                     break;
                 case 3:
+                    for(i=0;i<5;i++){
+                        if((locacao[posicaoMatriz][i].codigo != 0) && (locacao[posicaoMatriz][i].dataDevolucao.dia == 0)){
+                            listarDadosLocacao(&locacao[posicaoMatriz][i].codigo);
+                            i++;
+                        }else{
+                            cont++;
+                        }
+                    }
+                    if(cont == 5){
+                        erro(9);
+                    }
                     break;
                 default:
                     erro(1);
@@ -731,16 +835,122 @@ void listarLocacaoCliente(){
             }
             break;
         case 2:
+            scanf(" %s", pessoa.juridica);
+            posicaoCliente = procurarCliente(&recebeTipoPessoa, pessoa);
+            if(posicaoCliente == -1){
+                erro(4);
+                return;
+            }
+            posicaoMatriz = indiceDoCaralho(&recebeTipoPessoa, &posicaoCliente, pessoa);
+
+            scanf(" %d", &subMenu);
+            switch(subMenu){
+                case 1:
+                    for(i=0;i<5;i++){
+                        if(locacao[posicaoMatriz][i].codigo != 0){
+                            listarDadosLocacao(&locacao[posicaoMatriz][i].codigo);
+                            i++;
+                        }else{
+                            cont++;
+                        }
+                    }
+                    if(cont == 5){
+                        erro(9);
+                    }
+                    break;
+                case 2:
+                    for(i=0;i<5;i++){
+                        if((locacao[posicaoMatriz][i].codigo != 0) && (locacao[posicaoMatriz][i].dataDevolucao.dia != 0)){
+                            listarDadosLocacao(&locacao[posicaoMatriz][i].codigo);
+                            i++;
+                        }else{
+                            cont++;
+                        }
+                    }
+                    if(cont == 5){
+                        erro(9);
+                    }
+                    break;
+                case 3:
+                    for(i=0;i<5;i++){
+                        if((locacao[posicaoMatriz][i].codigo != 0) && (locacao[posicaoMatriz][i].dataDevolucao.dia == 0)){
+                            listarDadosLocacao(&locacao[posicaoMatriz][i].codigo);
+                            i++;
+                        }else{
+                            cont++;
+                        }
+                    }
+                    if(cont == 5){
+                        erro(9);
+                    }
+                    break;
+                default:
+                    erro(1);
+                    break;
+            }
             break;
         default:
             erro(1);
             break;
     }
+}
+
+void listarLocacaoEmAberto(){
+    int i, j, cont=0, recebeTipoPessoa;
+
+    scanf(" %d", &recebeTipoPessoa);
+    switch(recebeTipoPessoa){
+        case 1:
+            for(i=0;i<15;i++){
+                for(j=0;j<5;j++){
+                    if((locacao[i][j].tipoCliente == 1) && (locacao[i][j].codigo != 0) && (locacao[i][j].dataDevolucao.dia == 0)){
+                        printarLocacao(&i, &j);
+                        cont++;
+                    }
+                }
+            }
+            if(cont == 0){
+                erro(9);
+            }
+            break;
+        case 2:
+            for(i=0;i<15;i++){
+                for(j=0;j<5;j++){
+                    if((locacao[i][j].tipoCliente == 2) && (locacao[i][j].codigo != 0) && (locacao[i][j].dataDevolucao.dia == 0)){
+                        printarLocacao(&i, &j);
+                        cont++;
+                    }
+                }
+            }
+            if(cont == 0){
+                erro(9);
+            }
+            break;
+        default:
+            erro(1);
+            break;
+    }
+}
+/*
+int contadorCategoria(){
+    int batata;
+    return batata;
 }*/
+void listarLocacaoPorFrequencia(){
+    int recebeTipoPessoa;
+    scanf(" %d", &recebeTipoPessoa);
+    switch(recebeTipoPessoa){
+        case 1:
 
-//void listarLocacaoEmAberto(){}
+            break;
+        case 2:
+            break;
+        default:
+            erro(1);
+            break;
+    }
 
-//void listarLocacaoPorFrequencia(){}
+}
 
 void erro(int erro){
     switch(erro){
@@ -769,6 +979,9 @@ void erro(int erro){
             printf("ERRO: locacao cancelada\n");
             break;
         case 9:
+            printf("ERRO: nada cadastrado\n");
+            break;
+        case 10:
             printf("ERRO: nenhum dado cadastrado\n");
             break;
     }
@@ -807,13 +1020,15 @@ void printaPorraToda(){
     }
     printf("\n\nLocacao\n");
     for(i=0;i<15;i++){
-        printf("\n%s\n", locacao[i][j].pessoa.juridica);
-        printf("%d\n", locacao[i][j].tipoCliente);
-        for(i=0;i<15;i++){
-            printf("%d\n", locacao[i][j].codigo);
-            printf("%s\n", locacao[i][j].renavam);
-            printf("%02d/%02d/%02d\n", locacao[i][j].dataRetirada.dia, locacao[i][j].dataRetirada.mes, locacao[i][j].dataRetirada.ano);
-            printf("%02d/%02d/%02d\n\n", locacao[i][j].dataDevolucao.dia, locacao[i][j].dataDevolucao.mes, locacao[i][j].dataDevolucao.ano);
+        for(j=0;j<5;j++){
+            if(locacao[i][j].codigo!=0){
+                printf("%s\n", locacao[i][j].pessoa.juridica);
+                printf("%d\n", locacao[i][j].tipoCliente);
+                printf("%d\n", locacao[i][j].codigo);
+                printf("%s\n", locacao[i][j].renavam);
+                printf("%02d/%02d/%02d\n", locacao[i][j].dataRetirada.dia, locacao[i][j].dataRetirada.mes, locacao[i][j].dataRetirada.ano);
+                printf("%02d/%02d/%02d\n\n", locacao[i][j].dataDevolucao.dia, locacao[i][j].dataDevolucao.mes, locacao[i][j].dataDevolucao.ano);
+            }
         }
     }
 }

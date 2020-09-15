@@ -1,11 +1,12 @@
 # Projeto
+
 Uma empresa de locação de veículos está contratando você para desenvolver seu sistema de locação de veículos. Segue abaixo as especificações que você deve seguir para desenvolver o sistema solicitado. Inicialmente, é necessário entender as entidades envolvidas no processo, as quais são descritas abaixo.
 
 - Cliente: um cliente é uma pessoa que possui nome, endereço e telefone, sendo o endereço composto por rua, número, bairro e cidade. O telefone segue o formato: 19-9- XXXX-XXXX. Um cliente ou é uma pessoa física ou uma pessoa jurídica (fazer validação). Sendo pessoa física, o que o identifica é o seu CPF (formato: XXX.XXX.XXX-XX) (chave de busca). Sendo uma pessoa jurídica, o que o identifica é o seu CNPJ (formato: XX.XXX.XXX/XXXX-XX) (chave de busca). Para facilitar, supõe-se que é possível cadastrar no máximo 15 clientes.
 
 - Carro: um carro é descrito pelas seguintes características: renavam (formato: XXXXXXXXXXX) (chave de busca), placa (formato: LLL-NNNN), marca, modelo, ano, cor e categoria. As cores possíveis são: preta (1), branca (2) e prata (3) (fazer validação). As categorias possíveis são: hatch (1), sedan (2), suv (3) e jipe (4) (fazer validação). Para facilitar, supõe-se que é possível cadastrar no máximo 10 carros.
 
-- Cada categoria de carro está associada as seguintes informações: valor da diária e pontos fidelidade. O valor da diária é baseado, portanto, na categoria do carro. Cada categoria gera uma pontuação ao cliente, que poderá ser utilizada para ganhar descontos quando for realizar futuras locações. Fazer validação para a categoria informada.
+- Cada categoria de carro está associada as seguintes informações: valor da diária e pontos fidelidade. O valor da diária é baseado, portanto, na categoria do carro. Cada categoria gera um pontuação ao cliente, que poderá ser utilizada para ganhar descontos quando for realizar futuras locações. Fazer validação para a categoria informada.
 
 - Locação: uma locação é descrita pelas seguintes características: código da locação, tipo do cliente (física ou jurídica) (fazer validação), cliente (CPF ou CNPJ) (fazer validação), carro (Renavan) (fazer validação), data de retirada e data da devolução. O código deverá ser gerado automaticamente (auto incremento) e começará na numeração 1001. As datas são compotas por dia, mês e ano (exibir para o usuário no formato dd/mm/aa). Enquanto o carro não é devolvido, a data de devolução fica em 00/00/00.
 
@@ -59,32 +60,32 @@ O limite máximo de desconto não pode exceder a 30% do valor devido, i.e., o m�
 Exemplo: telefone, que tem formato 19-9-XXXX-XXXX, deve ter tamanho 15 e não 14. Para padronizar, as strings que não tem formato definido devem ser declaradas com tamanho 50.
 
 ## Observações sobre a correção:
-- É necessário passar nos casos de teste. Contudo, a nota não será baseada apenas nos casos de teste. Os códigos serão comparados em termo de similaridade, será checado se o mesmo contempla as especificações recomendadas e será avaliada também a qualidade de abstração da solução proposta.
+- É necessário passar nos casos de teste. Contudo, a nota não será baseada apenas nos casos de teste. Os códigos serão comparados em termo de similaridade, será checado se o mesmo comtempla as especificações recomendadas e será avaliada também a qualidade de abstração da solução proposta.
 
-## Menu de Opções:
-1. Cadastro de Cliente
+## Menu de Opções e ordem de entrada:
+1. Cadastro de Cliente: tipo cliente > chave cliente > nome > endereço (rua, num, bairro, cidade) > telefone
 
-2. Atualiza cadastro de um dado cliente
+2. Atualiza cadastro de um dado cliente: tipo cliente > chave cliente > opção (endereço ou telefone)
 
-3. Lista os dados de um dado cliente
+3. Lista os dados de um dado cliente: tipo cliente > chave cliente > mostrar nome, rua, num, bairro, cidade, telefone
 
-4. Cadastro de Carro
+4. Cadastro de Carro: renavam > categoria > cor > placa > marca > modelo > ano
 
-5. Cadastro de Dados da Categoria
+5. Cadastro de Dados da Categoria: categoria > valor diaria > pontos fidelidade
 
-6. Cadastro de Locação
+6. Cadastro de Locação: renavam > tipo cliente > chave cliente > dia retirada > mês retirada > ano retirada
 
-7. Devolve Carro
+7. Devolve Carro: tipo cliente > chave cliente > dia entrega > mes entrega > ano entrega
 
-8. Lista dados de uma determinada locação
+8. Lista dados de uma determinada locação: código locação
 
-9. Lista locações de um dado cliente
+9. Lista locações de um dado cliente: tipo cliente > chave cliente > opção (todas, encerradas ou abertas)
 
-10. Lista locações em aberto
+10. Lista locações em aberto: tipo cliente
 
-11. Frequência de locação por categoria
+11. Frequência de locação por categoria: tipo cliente
 
-    0 — Sair
+    0 - Sair
 
 ## Controle de fluxo:
 ### Entradas
@@ -95,17 +96,18 @@ scanf("%d", &x);   // para inteiros
 scanf("%u", &x);   // para enumerações
 scanf("%f", &x);   // para pontos flutuantes
 scanf(" %s", s);   // para strings sem espaços
-scanf(" %[^\n]%*c", s);   // para strings com espaço
+scanf(" %[^\n]%*c", s);   // para strings com espaços
 ```
 ## IMPORTANTE:
 Qualquer discrepância entre as saídas abaixo e as saídas dos casos de testes, por favor, enviei um e-mail informando a discordância para os monitores: vinicius.s.bueno@unesp.br e ana.klinke@unesp.br
 
 ### 1 - Cadastro de Cliente
+
 Verifica Quantidades de Clientes cadastrados
 
 `printf("ERRO: sem espaco\n");`
 
-verifica tipo de cliente - CPF - CNPJ
+verifica tipo de cliente - CPF - CNPJ (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: opcao invalida\n");`
 
@@ -118,9 +120,10 @@ verifica se cliente ja foi cadastrado
 `printf("Cadastrado com Sucesso\n");`
 
 ### 2 - Atualiza cadastro de um dado cliente
+
 SubMenu: 1 - adiciona endereço do cliente 2 - adiciona telefone cliente
 
-LEITURA - pessoa fisica / pessoa juridica
+LEITURA - pessoa fisica / pessoa juridica (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: opcao invalida\n");`
 
@@ -137,15 +140,14 @@ LEITURA - endereco / telefone
 `printf("Cadastrado com Sucesso\n");`
 
 ### 3 - Lista os dados de um dado cliente
-LEITURA - 1: pessoa fisica / 2: pessoa juridica
+
+LEITURA - 1: pessoa fisica / 2: pessoa juridica (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: opcao invalida\n");`
 
 verifica se o cliente está cadastrado
 
 `printf("ERRO: nao cadastrado\n");`
-
----
 
 Caso ache o cliente, mostrar os dados:
 
@@ -158,6 +160,7 @@ printf("cidade: %s\n",x);
 printf("telefone: %s\n",x);
 ```
 ### 4 - Cadastro de Carro
+
 Verifica Quantidades de Carros cadastrados
 
 `printf("ERRO: sem espaco\n");`
@@ -166,11 +169,11 @@ verifica se o carro ja foi cadastrado
 
 `printf("ERRO: ja cadastrado\n");`
 
-Leitura de cores: preta (1), branca (2) e prata (3) (fazer validação).
+Leitura de cores: preta (1), branca (2) e prata (3) (fazer validação). (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: opcao invalida\n");`
 
-Leitura de categorias: hatch (1), sedan (2), suv (3) e jipe (4).
+Leitura de categorias: hatch (1), sedan (2), suv (3) e jipe (4). (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: opcao invalida\n");`
 
@@ -178,8 +181,9 @@ Leitura de categorias: hatch (1), sedan (2), suv (3) e jipe (4).
 
 `printf("Cadastrado com Sucesso\n");`
 
-### 5 - Cadastro de Dados da Categoria
-verifica se a categoria é válida
+## 5 - Cadastro de Dados da Categoria
+
+verifica se a categoria é válida (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: opcao invalida\n");`
 
@@ -188,7 +192,8 @@ verifica se a categoria é válida
 `printf("Cadastrado com Sucesso\n");`
 
 ### 6 - Cadastro de Locação
-LEITURA - 1: pessoa fisica / 2: pessoa juridica
+
+LEITURA - 1: pessoa fisica / 2: pessoa juridica (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: opcao invalida\n");`
 
@@ -217,7 +222,8 @@ verifica se o cliente possui locação em aberto
 `printf("%d cadastrado com sucesso\n", codigo_locacao);`
 
 ### 7 - Devolve Carro
-LEITURA - 1: pessoa fisica / 2: pessoa juridica
+
+LEITURA - 1: pessoa fisica / 2: pessoa juridica (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: opcao invalida\n");`
 
@@ -225,7 +231,7 @@ verifica se o cliente está cadastrado
 
 `printf("ERRO: nao cadastrado\n");`
 
-verifica se a data é válida
+verifica se a data é válida (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: data invalida\n");`
 
@@ -233,7 +239,7 @@ verifica se não existe locação em aberto
 
 `printf("ERRO: nenhuma locacao em aberto\n");`
 
-mostra o valor devido
+mostra o valor total devido
 
 `printf("Valor devido: %.2f\n", x);`
 
@@ -241,16 +247,19 @@ mostra o desconto dado
 
 `printf("Desconto: %.2f\n", x);`
 
+caso a locação seja cancelada:
+
+`printf("Locacao cancelada\n");`
+
 ### 8 - Lista dados de uma determinada locação
+
 verifica se o codigo da locação está cadastrado
 
 `printf("ERRO: nao cadastrado\n");`
-
+]
 verifica se a locação foi cancelada
 
-`printf("ERRO: locacao cancelada\n");`
-
----
+`printf("ERRO: locacao foi cancelada\n");`
 
 Caso ache, mostrar os dados:
 
@@ -263,7 +272,8 @@ printf("data retirada: %02d/%02d/%02d\n",x,y,z);
 printf("data entrega: %02d/%02d/%02d\n",x,y,z);
 ```
 ### 9 - Lista locações de um dado cliente
-LEITURA - 1: pessoa fisica / 2: pessoa juridica
+
+LEITURA - 1: pessoa fisica / 2: pessoa juridica (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: opcao invalida\n");`
 
@@ -271,11 +281,9 @@ verifica se o cliente está cadastrado
 
 `printf("ERRO: nao cadastrado\n");`
 
-SubMenu: mostrar todas (1), as encerradas (2) ou a em aberto (3).
+SubMenu: mostrar todas (1), as encerradas (2) ou a em aberto (3). (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: opcao invalida\n");`
-
----
 
 Caso ache, mostrar os dados:
 
@@ -294,7 +302,8 @@ Nenhum dado de locação cadastrado:
 `printf("ERRO: nada cadastrado\n");`
 
 ### 10 - Lista locações em aberto
-LEITURA - 1: pessoa fisica / 2: pessoa juridica
+
+LEITURA - 1: pessoa fisica / 2: pessoa juridica (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: opcao invalida\n");`
 
@@ -318,7 +327,8 @@ Nenhum dado cadastrado:
 `printf("ERRO: nenhum dado cadastrado\n");`
 
 ### 11 - Frequência de locação por categoria
-LEITURA - 1: pessoa fisica / 2: pessoa juridica
+
+LEITURA - 1: pessoa fisica / 2: pessoa juridica (caso inválido, retorne ao menu principal)
 
 `printf("ERRO: opcao invalida\n");`
 
