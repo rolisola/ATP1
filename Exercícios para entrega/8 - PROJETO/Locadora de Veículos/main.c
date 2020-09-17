@@ -40,6 +40,9 @@ struct LOCACAO{
     float valorDevido, desconto;
 };
 
+//Variaveis globais para melhor entendimento de codigo
+//E o tempo de vida delas é o programa completo
+//Não tem motivo de colocalas na Main
 struct CLIENTE cliente[15];
 struct CARRO carro[10];
 struct CATEGORIACARRO categCarro[4];
@@ -58,6 +61,7 @@ int verificarData(int *dia, int *mes, int *ano);
 void printarLocacao(int *i,int *j);
 int *contadorFrequencia(int *tipoPessoa, int *vetorContador);
 int comparador(const void *a, const void *b);
+int *ordenador(int *frequencia, int *auxiliar, int *posicao);
 void printarFrequencia(int *posicao, int *frequencia);
 
 //Funções principais
