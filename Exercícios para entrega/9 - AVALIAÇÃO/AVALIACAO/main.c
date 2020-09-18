@@ -191,7 +191,7 @@ void ListarNumeroEstabelecimentoDeTipoPorEstrela(struct AVALIACOES *avaliacao, i
             }
         }
     }
-    //esta verifica√ß√£o √© para caso a posicao 0 da avaliacao n√£o falte na contagem
+    //esta verificaÁ„o È para caso a posicao 0 da avaliacao n„o falte na contagem
     if(avaliacao[0].dadosEstabelecimento.restaurante.estabelecimento.nome[0] != '\0' && (avaliacao[0].tipoEstabelecimeto == recebeTipoEstabelecimento)){
         contador[0]++;
     }
